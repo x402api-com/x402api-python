@@ -1,0 +1,31 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: X402Api
+  maintainOpenAPIOrder: true
+  persistentEdits:
+    enabled: true
+  repoUrl: https://github.com/x402api-com/x402api-python
+  fixes:
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    nameOverrideFeb2026: true
+python:
+  version: 1.0.0
+  maxMethodParams: 0
+  clientServerStatusCodesAsErrors: true
+  responseFormat: envelope-http
+  templateVersion: v2
+  packageName: x402api
+  moduleName: x402api
+  authors:
+  - x402api
+  description: Official Python SDK for the x402api public API.
+  homepage: https://x402api.com
+  documentationUrl: https://x402api.com/docs
+  license: MIT
+  packageManager: uv
+  asyncMode: both
+  defaultErrorName: X402ApiError
+  forwardCompatibleEnumsByDefault: true
