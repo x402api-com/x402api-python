@@ -16,6 +16,7 @@ python:
   maxMethodParams: 0
   clientServerStatusCodesAsErrors: true
   responseFormat: envelope-http
+  envVarPrefix: X402API
   templateVersion: v2
   packageName: x402api
   moduleName: x402api
