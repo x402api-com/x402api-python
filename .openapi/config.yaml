@@ -1,0 +1,10 @@
+packageName: x402api
+projectName: x402api
+packageVersion: 1.0.0
+packageUrl: https://github.com/x402api-com/x402api-python
+library: urllib3
+buildSystem: setuptools
+lazyImports: true
+hideGenerationTimestamp: true
+disallowAdditionalPropertiesIfNotPresent: false
+useOneOfDiscriminatorLookup: true

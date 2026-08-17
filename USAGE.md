@@ -1,95 +1,140 @@
-## Using the x402api Python SDK
+# Python usage guide
 
-The examples below show the configured public surface. Generated request and
-response model names are documented under `docs/` after the first SDK generation.
+The [README](README.md) contains installation instructions and the complete function index. This guide focuses on safe production patterns.
 
-### Configure authentication
+## Create and reuse a client
 
-Create a scoped tenant API key in x402api and expose it to the server process as
-`X402API_TENANT_API_KEY`. The SDK sends it as a bearer credential. Never embed a
-tenant API key in browser, mobile, desktop, or other distributed client code.
-
-### Initialize the client
+`ApiClient` owns the connection pool. Create one per configuration and reuse it instead of creating a new client for every request.
 
 ```python
 import os
 import x402api
 
-sdk = x402api.X402Api(
-    security=x402api.Security(
-        tenant_api_key=os.environ["X402API_TENANT_API_KEY"],
-    )
+configuration = x402api.Configuration(
+    host="https://api.x402api.com",
+    access_token=os.environ["X402API_TENANT_API_KEY"],
 )
 
-readiness = sdk.payment_readiness.retrieve()
-payments = sdk.payments.list({"page_size": 25})
-
-print(readiness)
-print(payments)
-
-# Every operation also has an async variant when asyncMode is set to "both".
-# readiness = await sdk.payment_readiness.retrieve_async()
+with x402api.ApiClient(configuration) as api_client:
+    charges_api = x402api.ProgrammaticChargesApi(api_client)
+    payments_api = x402api.OrdersAndPaymentsApi(api_client)
+    resources_api = x402api.ResourcesAndPricingApi(api_client)
 ```
 
-The idiomatic method shape for this SDK is `sdk.resource_name.method_name(request)`.
-All request fields are collected into a typed request object so new optional API
-fields do not break existing call sites.
+The context manager closes the underlying HTTP pool. For a long-running service, keep the client for the application lifetime and call `api_client.close()` during shutdown.
 
-### Create a charge
+## Create and retrieve a charge
 
-The logical SDK call is `charges.create`. Supply a unique `Idempotency-Key` for
-each intended mutation and reuse the same key only when retrying that exact
-request. The request contains a resource-version UUID, the protected URL, one or
-more asset prices expressed in atomic units, and an expiry between 30 and 3600
-seconds.
+```python
+from uuid import UUID
 
-The equivalent HTTP request is useful for validating credentials independently
-of the SDK:
+request = x402api.DynamicChargeCreate(
+    resource_version_id=UUID("00000000-0000-4000-8000-000000000001"),
+    resource_url="https://merchant.example.com/premium-report",
+    prices=[
+        x402api.DynamicChargePrice(
+            asset_id="base_usdc",
+            amount_atomic="1000000",
+        )
+    ],
+    expires_in_seconds=900,
+    metadata={"order_id": "order-123"},
+)
 
-```bash
-curl --request POST https://api.x402api.com/v1/charges \
-  --header "Authorization: Bearer $X402API_TENANT_API_KEY" \
-  --header "Content-Type: application/json" \
-  --header "Idempotency-Key: charge-$(date +%s)" \
-  --data '{
-    "resource_version_id": "00000000-0000-4000-8000-000000000001",
-    "resource_url": "https://merchant.example.com/premium-report",
-    "prices": [{
-      "asset_id": "base_usdc",
-      "amount_atomic": "1000000"
-    }],
-    "expires_in_seconds": 900,
-    "metadata": {"customer_reference": "customer-123"}
-  }'
+idempotency_key = "charge-order-123-v1"
+charge = charges_api.charges_create(idempotency_key, request)
+
+same_charge = charges_api.charges_retrieve(charge.charge_id)
 ```
 
-### Read payment state and receipts
+Prices use atomic-unit strings, not floating point. For example, `"1000000"` represents one token for an asset with six decimals.
 
-Use `payments.list` for a tenant-wide view, `payments.retrieve` for one payment,
-`payments.listObservations` for chain evidence, and `payments.retrieveReceipt`
-for the signed final receipt. Retrieve the public verification-key history with
-`receiptVerificationKeys.retrieve` before verifying receipts offline.
+## Pagination and HTTP headers
 
-### Cursor pagination
+List operations return a bounded array. Use the `with_http_info` variant when you need the next cursor or request ID.
 
-`orders.list`, `payments.list`, `payments.listObservations`,
-`receivingAddresses.list`, `resources.list`, and `resources.listVersions` accept
-`pageSize` (1-100) and an optional opaque `cursor`. Do not decode or construct
-cursors. Read the next cursor from `X-X402API-Next-Cursor` or the `Link` response
-header and pass it unchanged to the next call.
+```python
+cursor = None
 
-### Idempotent mutations
+while True:
+    response = payments_api.payments_list_with_http_info(
+        cursor=cursor,
+        page_size=100,
+        _request_timeout=(3, 15),
+    )
 
-Every mutating operation marked in the function table requires an idempotency
-key of 8-160 characters matching `[A-Za-z0-9._:-]+`. A transport timeout does
-not prove that a mutation failed. Retry the same payload with the same key, or
-call `idempotency.getOutcome` to resolve its durable outcome.
+    for payment in response.data:
+        process(payment)
 
-### Errors, retries, and HTTP metadata
+    request_id = response.headers.get("X-Request-ID")
+    cursor = response.headers.get("X-X402API-Next-Cursor")
+    if not cursor:
+        break
+```
 
-The SDK raises or returns a typed `X402ApiError` for documented 4xx, 5xx, and
-default error responses. Generated responses use the `envelope-http` format so
-callers can inspect the decoded body, status code, and response headers. The SDK
-applies short exponential-backoff retries to connection failures and status
-codes 408, 429, 500, 502, 503, and 504. Application-level retries must still
-respect idempotency requirements.
+Treat the cursor as opaque and pass it back unchanged. The same pattern applies to orders, payment observations, receiving addresses, resources, and resource versions.
+
+## Error handling
+
+```python
+from x402api.rest import ApiException
+
+try:
+    payment = payments_api.payments_retrieve(payment_id)
+except ApiException as error:
+    request_id = None
+    if error.headers:
+        request_id = error.headers.get("X-Request-ID")
+
+    if error.status == 404:
+        handle_not_found()
+    elif error.status == 429:
+        handle_rate_limit(error.headers.get("Retry-After"))
+    else:
+        log_api_error(
+            status=error.status,
+            reason=error.reason,
+            body=error.body,
+            request_id=request_id,
+        )
+        raise
+```
+
+Pydantic rejects invalid request models before the request is sent. HTTP error bodies use the generated `ApiErrorEnvelope` schema when the server returned a documented JSON error.
+
+## Idempotency and retries
+
+Mutations require keys of 8-160 characters matching `[A-Za-z0-9._:-]+`. Persist the key with the intent you are executing.
+
+- New intended mutation: generate a new key.
+- Timeout or connection reset after sending: retry the identical body with the same key.
+- Known validation failure: fix the request and use a new key.
+- Uncertain durable outcome: call `IdempotencyApi.idempotency_get_outcome(key)`.
+
+The SDK does not retry automatically. Bound application retries, use exponential backoff with jitter, respect `Retry-After`, and normally retry only connection failures plus HTTP `408`, `429`, `500`, `502`, `503`, and `504`.
+
+## Public endpoints
+
+These endpoints do not need a tenant key:
+
+```python
+public_configuration = x402api.Configuration()
+with x402api.ApiClient(public_configuration) as public_client:
+    supported = x402api.FacilitatorDiscoveryApi(
+        public_client
+    ).facilitator_get_supported()
+    keys = x402api.OrdersAndPaymentsApi(
+        public_client
+    ).receipt_verification_keys_retrieve()
+```
+
+## Serialization
+
+Generated models are Pydantic models. Use `model_dump()` for Python data, `to_dict()` for the API-shaped dictionary, and `to_json()` for JSON.
+
+```python
+payload = charge.to_dict()
+json_payload = charge.to_json()
+```
+
+Do not edit generated files under `x402api/` or `docs/`; update the OpenAPI contract or generator configuration instead.
