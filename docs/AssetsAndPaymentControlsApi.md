@@ -4,15 +4,11 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**payment_readiness_retrieve**](AssetsAndPaymentControlsApi.md#payment_readiness_retrieve) | **GET** /v1/payment-readiness | Retrieve payment readiness
+[**v1_payment_readiness_retrieve**](AssetsAndPaymentControlsApi.md#v1_payment_readiness_retrieve) | **GET** /v1/payment-readiness |
 
 
-# **payment_readiness_retrieve**
-> PaymentReadiness payment_readiness_retrieve()
-
-Retrieve payment readiness
-
-Return the tenant's current external-wallet payment-readiness projection.
+# **v1_payment_readiness_retrieve**
+> PaymentReadiness v1_payment_readiness_retrieve()
 
 ### Example
 
@@ -46,12 +42,11 @@ with x402api.ApiClient(configuration) as api_client:
     api_instance = x402api.AssetsAndPaymentControlsApi(api_client)
 
     try:
-        # Retrieve payment readiness
-        api_response = api_instance.payment_readiness_retrieve()
-        print("The response of AssetsAndPaymentControlsApi->payment_readiness_retrieve:\n")
+        api_response = api_instance.v1_payment_readiness_retrieve()
+        print("The response of AssetsAndPaymentControlsApi->v1_payment_readiness_retrieve:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AssetsAndPaymentControlsApi->payment_readiness_retrieve: %s\n" % e)
+        print("Exception when calling AssetsAndPaymentControlsApi->v1_payment_readiness_retrieve: %s\n" % e)
 ```
 
 
@@ -77,7 +72,6 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful response for retrieve payment readiness. |  * X-Request-ID -  <br>  |
-**0** | The request failed with a stable machine-readable error. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
+**200** |  |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

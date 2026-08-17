@@ -1,6 +1,4 @@
 .gitignore
-docs/ApiError.md
-docs/ApiErrorEnvelope.md
 docs/AssetsAndPaymentControlsApi.md
 docs/BalanceAsset.md
 docs/DynamicChargeCreate.md
@@ -110,8 +108,6 @@ x402api/api_response.py
 x402api/configuration.py
 x402api/exceptions.py
 x402api/models/__init__.py
-x402api/models/api_error.py
-x402api/models/api_error_envelope.py
 x402api/models/balance_asset.py
 x402api/models/dynamic_charge_create.py
 x402api/models/dynamic_charge_price.py
