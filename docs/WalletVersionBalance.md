@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **wallet_address** | **str** |  |
 **state** | [**WalletVersionBalanceStateEnum**](WalletVersionBalanceStateEnum.md) |  |
 **observation_state** | [**ObservationStateEnum**](ObservationStateEnum.md) |  |
+**tracking_status** | [**TrackingStatusEnum**](TrackingStatusEnum.md) |  |
 **observed_at** | **datetime** |  |
 **assets** | [**List[BalanceAsset]**](BalanceAsset.md) |  |
 **reseed_context** | [**WalletChainReseedContext**](WalletChainReseedContext.md) |  |

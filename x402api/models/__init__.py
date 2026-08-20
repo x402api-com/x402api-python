@@ -94,6 +94,7 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.tenant_payment_screening_projection import TenantPaymentScreeningProjection
     from x402api.models.tenant_payment_screening_subject_projection import TenantPaymentScreeningSubjectProjection
     from x402api.models.tenant_payment_screening_subject_projection_status_enum import TenantPaymentScreeningSubjectProjectionStatusEnum
+    from x402api.models.tracking_status_enum import TrackingStatusEnum
     from x402api.models.wallet_balance_response import WalletBalanceResponse
     from x402api.models.wallet_chain_reseed_context import WalletChainReseedContext
     from x402api.models.wallet_fenced_chain_reseed_context import WalletFencedChainReseedContext
@@ -189,6 +190,7 @@ from x402api.models.tenant_payment_resource_projection import TenantPaymentResou
 from x402api.models.tenant_payment_screening_projection import TenantPaymentScreeningProjection
 from x402api.models.tenant_payment_screening_subject_projection import TenantPaymentScreeningSubjectProjection
 from x402api.models.tenant_payment_screening_subject_projection_status_enum import TenantPaymentScreeningSubjectProjectionStatusEnum
+from x402api.models.tracking_status_enum import TrackingStatusEnum
 from x402api.models.wallet_balance_response import WalletBalanceResponse
 from x402api.models.wallet_chain_reseed_context import WalletChainReseedContext
 from x402api.models.wallet_fenced_chain_reseed_context import WalletFencedChainReseedContext

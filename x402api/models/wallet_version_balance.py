@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from x402api.models.balance_asset import BalanceAsset
 from x402api.models.observation_state_enum import ObservationStateEnum
+from x402api.models.tracking_status_enum import TrackingStatusEnum
 from x402api.models.wallet_chain_reseed_context import WalletChainReseedContext
 from x402api.models.wallet_version_balance_state_enum import WalletVersionBalanceStateEnum
 from typing import Optional, Set
@@ -38,11 +39,12 @@ class WalletVersionBalance(BaseModel):
     wallet_address: StrictStr
     state: WalletVersionBalanceStateEnum
     observation_state: ObservationStateEnum
+    tracking_status: TrackingStatusEnum
     observed_at: Optional[datetime]
     assets: List[BalanceAsset]
     reseed_context: Optional[WalletChainReseedContext]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["wallet_version_id", "version", "wallet_address", "state", "observation_state", "observed_at", "assets", "reseed_context"]
+    __properties: ClassVar[List[str]] = ["wallet_version_id", "version", "wallet_address", "state", "observation_state", "tracking_status", "observed_at", "assets", "reseed_context"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -127,6 +129,7 @@ class WalletVersionBalance(BaseModel):
             "wallet_address": obj.get("wallet_address"),
             "state": obj.get("state"),
             "observation_state": obj.get("observation_state"),
+            "tracking_status": obj.get("tracking_status"),
             "observed_at": obj.get("observed_at"),
             "assets": [BalanceAsset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "reseed_context": WalletChainReseedContext.from_dict(obj["reseed_context"]) if obj.get("reseed_context") is not None else None

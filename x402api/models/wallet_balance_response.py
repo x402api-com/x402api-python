@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from x402api.models.balance_asset import BalanceAsset
 from x402api.models.observation_state_enum import ObservationStateEnum
+from x402api.models.tracking_status_enum import TrackingStatusEnum
 from x402api.models.wallet_fenced_chain_reseed_context import WalletFencedChainReseedContext
 from x402api.models.wallet_observation_finality_enum import WalletObservationFinalityEnum
 from x402api.models.wallet_version_balance import WalletVersionBalance
@@ -39,12 +40,13 @@ class WalletBalanceResponse(BaseModel):
     wallet_address: Optional[StrictStr]
     requested_finality: WalletObservationFinalityEnum
     observation_state: ObservationStateEnum
+    tracking_status: TrackingStatusEnum
     observed_at: Optional[datetime]
     assets: List[BalanceAsset]
     wallet_versions: List[WalletVersionBalance]
     reseed_contexts: List[WalletFencedChainReseedContext]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["wallet_id", "network", "wallet_address", "requested_finality", "observation_state", "observed_at", "assets", "wallet_versions", "reseed_contexts"]
+    __properties: ClassVar[List[str]] = ["wallet_id", "network", "wallet_address", "requested_finality", "observation_state", "tracking_status", "observed_at", "assets", "wallet_versions", "reseed_contexts"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -140,6 +142,7 @@ class WalletBalanceResponse(BaseModel):
             "wallet_address": obj.get("wallet_address"),
             "requested_finality": obj.get("requested_finality"),
             "observation_state": obj.get("observation_state"),
+            "tracking_status": obj.get("tracking_status"),
             "observed_at": obj.get("observed_at"),
             "assets": [BalanceAsset.from_dict(_item) for _item in obj["assets"]] if obj.get("assets") is not None else None,
             "wallet_versions": [WalletVersionBalance.from_dict(_item) for _item in obj["wallet_versions"]] if obj.get("wallet_versions") is not None else None,
