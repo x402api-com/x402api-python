@@ -5,6 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**state** | [**PaymentReadinessStateEnum**](PaymentReadinessStateEnum.md) |  | [readonly]
+**accepting_new_payments** | **bool** |  | [readonly]
+**paused_by_tenant** | **bool** |  | [readonly]
+**platform_available** | **bool** |  | [readonly]
+**health_valid_until** | **datetime** |  | [readonly]
 **observed_at** | **datetime** |  | [readonly]
 **tenant_status** | **str** |  | [readonly]
 **tenant_accepting_new_challenges** | **bool** |  | [readonly]
@@ -14,6 +19,7 @@ Name | Type | Description | Notes
 **control_plane_ready_for_settlement** | **bool** |  | [readonly]
 **external_onboarding** | **object** |  | [readonly]
 **rails** | [**List[PaymentReadinessRail]**](PaymentReadinessRail.md) |  | [readonly]
+**canonical_rails** | [**List[CanonicalPaymentReadinessRail]**](CanonicalPaymentReadinessRail.md) |  | [readonly]
 
 ## Example
 

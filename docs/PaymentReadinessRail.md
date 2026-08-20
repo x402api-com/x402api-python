@@ -5,7 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**asset_id** | **str** |  | [readonly]
 **network** | **str** |  | [readonly]
+**symbol** | **str** |  | [readonly]
+**selected** | **bool** |  | [readonly]
+**wallet_ready** | **bool** |  | [readonly]
+**platform_available** | **bool** |  | [readonly]
+**accepting_new_payments** | **bool** |  | [readonly]
+**status** | **str** |  | [readonly]
+**blockers** | [**List[PaymentReadinessBlocker]**](PaymentReadinessBlocker.md) |  | [readonly]
 **tenant_challenges_enabled** | **bool** |  | [readonly]
 **tenant_settlement_enabled** | **bool** |  | [readonly]
 **network_assistance_enabled** | **bool** |  | [readonly]

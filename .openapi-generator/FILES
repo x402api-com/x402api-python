@@ -1,6 +1,9 @@
 .gitignore
+docs/ApiError.md
+docs/ApiErrorEnvelope.md
 docs/AssetsAndPaymentControlsApi.md
 docs/BalanceAsset.md
+docs/CanonicalPaymentReadinessRail.md
 docs/DynamicChargeCreate.md
 docs/DynamicChargePrice.md
 docs/DynamicChargeResponse.md
@@ -36,7 +39,11 @@ docs/OrderStatusEnum.md
 docs/OrdersAndPaymentsApi.md
 docs/PaymentReadiness.md
 docs/PaymentReadinessAsset.md
+docs/PaymentReadinessBlocker.md
+docs/PaymentReadinessBlockerOwnerEnum.md
 docs/PaymentReadinessRail.md
+docs/PaymentReadinessRailStatusEnum.md
+docs/PaymentReadinessStateEnum.md
 docs/PaymentReceipt.md
 docs/PriceInput.md
 docs/ProgrammaticChargesApi.md
@@ -108,7 +115,10 @@ x402api/api_response.py
 x402api/configuration.py
 x402api/exceptions.py
 x402api/models/__init__.py
+x402api/models/api_error.py
+x402api/models/api_error_envelope.py
 x402api/models/balance_asset.py
+x402api/models/canonical_payment_readiness_rail.py
 x402api/models/dynamic_charge_create.py
 x402api/models/dynamic_charge_price.py
 x402api/models/dynamic_charge_response.py
@@ -141,7 +151,11 @@ x402api/models/order.py
 x402api/models/order_status_enum.py
 x402api/models/payment_readiness.py
 x402api/models/payment_readiness_asset.py
+x402api/models/payment_readiness_blocker.py
+x402api/models/payment_readiness_blocker_owner_enum.py
 x402api/models/payment_readiness_rail.py
+x402api/models/payment_readiness_rail_status_enum.py
+x402api/models/payment_readiness_state_enum.py
 x402api/models/payment_receipt.py
 x402api/models/price_input.py
 x402api/models/readiness_status_enum.py

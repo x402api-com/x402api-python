@@ -4,11 +4,15 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v1_wallets_balances_retrieve**](WalletsAndTransfersApi.md#v1_wallets_balances_retrieve) | **GET** /v1/wallets/{id}/balances |
+[**wallets_retrieve_balance**](WalletsAndTransfersApi.md#wallets_retrieve_balance) | **GET** /v1/wallets/{id}/balances | Retrieve wallet balances
 
 
-# **v1_wallets_balances_retrieve**
-> WalletBalanceResponse v1_wallets_balances_retrieve(id, finality=finality)
+# **wallets_retrieve_balance**
+> WalletBalanceResponse wallets_retrieve_balance(id, finality=finality)
+
+Retrieve wallet balances
+
+Retrieve finalized external-wallet balance observations at the requested finality.
 
 ### Example
 
@@ -44,11 +48,12 @@ with x402api.ApiClient(configuration) as api_client:
     finality = 'finalized' # str |  (optional) (default to 'finalized')
 
     try:
-        api_response = api_instance.v1_wallets_balances_retrieve(id, finality=finality)
-        print("The response of WalletsAndTransfersApi->v1_wallets_balances_retrieve:\n")
+        # Retrieve wallet balances
+        api_response = api_instance.wallets_retrieve_balance(id, finality=finality)
+        print("The response of WalletsAndTransfersApi->wallets_retrieve_balance:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling WalletsAndTransfersApi->v1_wallets_balances_retrieve: %s\n" % e)
+        print("Exception when calling WalletsAndTransfersApi->wallets_retrieve_balance: %s\n" % e)
 ```
 
 
@@ -78,6 +83,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
+**200** | Successful response for retrieve wallet balances. |  * X-Request-ID -  <br>  |
+**0** | The request failed with a stable machine-readable error. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

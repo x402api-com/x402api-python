@@ -4,14 +4,16 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_dynamic_charge**](ProgrammaticChargesApi.md#create_dynamic_charge) | **POST** /v1/charges |
-[**retrieve_dynamic_charge**](ProgrammaticChargesApi.md#retrieve_dynamic_charge) | **GET** /v1/charges/{charge_id} |
+[**charges_create**](ProgrammaticChargesApi.md#charges_create) | **POST** /v1/charges | Create a programmatic charge
+[**charges_retrieve**](ProgrammaticChargesApi.md#charges_retrieve) | **GET** /v1/charges/{charge_id} | Retrieve a programmatic charge
 
 
-# **create_dynamic_charge**
-> DynamicChargeResponse create_dynamic_charge(idempotency_key, dynamic_charge_create)
+# **charges_create**
+> DynamicChargeResponse charges_create(idempotency_key, dynamic_charge_create)
 
-Create one idempotent dynamic charge from an active resource template. The immutable challenge freezes exact requested atomic amounts, eligible rails, verified tenant receiving addresses, fee policy and evidence, metadata, and expiry. The caller cannot supply a recipient address.
+Create a programmatic charge
+
+Create one idempotent dynamic charge with immutable x402 payment terms.
 
 ### Example
 
@@ -44,15 +46,16 @@ configuration = x402api.Configuration(
 with x402api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = x402api.ProgrammaticChargesApi(api_client)
-    idempotency_key = 'idempotency_key_example' # str | Unique mutation key; replaying different content returns HTTP 409.
+    idempotency_key = 'idempotency_key_example' # str | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
     dynamic_charge_create = x402api.DynamicChargeCreate() # DynamicChargeCreate |
 
     try:
-        api_response = api_instance.create_dynamic_charge(idempotency_key, dynamic_charge_create)
-        print("The response of ProgrammaticChargesApi->create_dynamic_charge:\n")
+        # Create a programmatic charge
+        api_response = api_instance.charges_create(idempotency_key, dynamic_charge_create)
+        print("The response of ProgrammaticChargesApi->charges_create:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ProgrammaticChargesApi->create_dynamic_charge: %s\n" % e)
+        print("Exception when calling ProgrammaticChargesApi->charges_create: %s\n" % e)
 ```
 
 
@@ -62,7 +65,7 @@ with x402api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idempotency_key** | **str**| Unique mutation key; replaying different content returns HTTP 409. |
+ **idempotency_key** | **str**| Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
  **dynamic_charge_create** | [**DynamicChargeCreate**](DynamicChargeCreate.md)|  |
 
 ### Return type
@@ -82,16 +85,19 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** |  |  -  |
-**409** |  |  -  |
-**422** |  |  -  |
+**201** | Successful response for create a programmatic charge. |  * X-Request-ID -  <br>  |
+**409** | The request failed. |  * X-Request-ID -  <br>  |
+**422** | The request failed. |  * X-Request-ID -  <br>  |
+**0** | The request failed with a stable machine-readable error. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **retrieve_dynamic_charge**
-> DynamicChargeResponse retrieve_dynamic_charge(charge_id)
+# **charges_retrieve**
+> DynamicChargeResponse charges_retrieve(charge_id)
 
-Return the tenant-scoped frozen charge terms and current projected status without recomputing prices, recipients, rails, or fee evidence.
+Retrieve a programmatic charge
+
+Retrieve the frozen terms and current projected status of a tenant charge.
 
 ### Example
 
@@ -126,11 +132,12 @@ with x402api.ApiClient(configuration) as api_client:
     charge_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |
 
     try:
-        api_response = api_instance.retrieve_dynamic_charge(charge_id)
-        print("The response of ProgrammaticChargesApi->retrieve_dynamic_charge:\n")
+        # Retrieve a programmatic charge
+        api_response = api_instance.charges_retrieve(charge_id)
+        print("The response of ProgrammaticChargesApi->charges_retrieve:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ProgrammaticChargesApi->retrieve_dynamic_charge: %s\n" % e)
+        print("Exception when calling ProgrammaticChargesApi->charges_retrieve: %s\n" % e)
 ```
 
 
@@ -159,7 +166,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
-**404** |  |  -  |
+**200** | Successful response for retrieve a programmatic charge. |  * X-Request-ID -  <br>  |
+**404** | The request failed. |  * X-Request-ID -  <br>  |
+**0** | The request failed with a stable machine-readable error. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
