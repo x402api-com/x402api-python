@@ -55,6 +55,7 @@ __all__ = [
     "FeePolicyDocument",
     "FeePolicyModeInputEnum",
     "FeePolicyQuoteCurrencyInputEnum",
+    "GasModeEnum",
     "HTTPMethodEnum",
     "IdempotencyOutcome",
     "IdempotencyOutcomeStateEnum",
@@ -168,6 +169,7 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.fee_policy_document import FeePolicyDocument as FeePolicyDocument
     from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum as FeePolicyModeInputEnum
     from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum as FeePolicyQuoteCurrencyInputEnum
+    from x402api.models.gas_mode_enum import GasModeEnum as GasModeEnum
     from x402api.models.http_method_enum import HTTPMethodEnum as HTTPMethodEnum
     from x402api.models.idempotency_outcome import IdempotencyOutcome as IdempotencyOutcome
     from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum as IdempotencyOutcomeStateEnum
@@ -287,6 +289,7 @@ from x402api.models.external_receiving_address_rotation import ExternalReceiving
 from x402api.models.fee_policy_document import FeePolicyDocument as FeePolicyDocument
 from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum as FeePolicyModeInputEnum
 from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum as FeePolicyQuoteCurrencyInputEnum
+from x402api.models.gas_mode_enum import GasModeEnum as GasModeEnum
 from x402api.models.http_method_enum import HTTPMethodEnum as HTTPMethodEnum
 from x402api.models.idempotency_outcome import IdempotencyOutcome as IdempotencyOutcome
 from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum as IdempotencyOutcomeStateEnum

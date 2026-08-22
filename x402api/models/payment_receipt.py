@@ -45,9 +45,15 @@ class PaymentReceipt(BaseModel):
     fee_quote_digest: Optional[StrictStr]
     fee_quote_expires_at: Optional[datetime]
     settlement_amount_atomic: StrictStr
+    gas_mode: StrictStr
+    buyer_native_fee_atomic: Optional[StrictStr]
+    sponsored_native_fee_atomic: Optional[StrictStr]
+    sponsored_native_symbol: Optional[StrictStr]
+    tenant_gas_charge_micros: Optional[StrictStr]
+    gas_sponsorship_evidence_digest: Optional[StrictStr]
     created_at: datetime
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "order_id", "settlement_job_id", "receipt", "receipt_digest", "signature", "signing_key_version", "eligible_alternatives", "fee_policy", "fee_evidence", "fee_quote_digest", "fee_quote_expires_at", "settlement_amount_atomic", "created_at"]
+    __properties: ClassVar[List[str]] = ["id", "order_id", "settlement_job_id", "receipt", "receipt_digest", "signature", "signing_key_version", "eligible_alternatives", "fee_policy", "fee_evidence", "fee_quote_digest", "fee_quote_expires_at", "settlement_amount_atomic", "gas_mode", "buyer_native_fee_atomic", "sponsored_native_fee_atomic", "sponsored_native_symbol", "tenant_gas_charge_micros", "gas_sponsorship_evidence_digest", "created_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -93,6 +99,12 @@ class PaymentReceipt(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
@@ -109,6 +121,12 @@ class PaymentReceipt(BaseModel):
             "fee_quote_digest",
             "fee_quote_expires_at",
             "settlement_amount_atomic",
+            "gas_mode",
+            "buyer_native_fee_atomic",
+            "sponsored_native_fee_atomic",
+            "sponsored_native_symbol",
+            "tenant_gas_charge_micros",
+            "gas_sponsorship_evidence_digest",
             "created_at",
             "additional_properties",
         ])
@@ -161,6 +179,31 @@ class PaymentReceipt(BaseModel):
         if self.fee_quote_expires_at is None and "fee_quote_expires_at" in self.model_fields_set:
             _dict['fee_quote_expires_at'] = None
 
+        # set to None if buyer_native_fee_atomic (nullable) is None
+        # and model_fields_set contains the field
+        if self.buyer_native_fee_atomic is None and "buyer_native_fee_atomic" in self.model_fields_set:
+            _dict['buyer_native_fee_atomic'] = None
+
+        # set to None if sponsored_native_fee_atomic (nullable) is None
+        # and model_fields_set contains the field
+        if self.sponsored_native_fee_atomic is None and "sponsored_native_fee_atomic" in self.model_fields_set:
+            _dict['sponsored_native_fee_atomic'] = None
+
+        # set to None if sponsored_native_symbol (nullable) is None
+        # and model_fields_set contains the field
+        if self.sponsored_native_symbol is None and "sponsored_native_symbol" in self.model_fields_set:
+            _dict['sponsored_native_symbol'] = None
+
+        # set to None if tenant_gas_charge_micros (nullable) is None
+        # and model_fields_set contains the field
+        if self.tenant_gas_charge_micros is None and "tenant_gas_charge_micros" in self.model_fields_set:
+            _dict['tenant_gas_charge_micros'] = None
+
+        # set to None if gas_sponsorship_evidence_digest (nullable) is None
+        # and model_fields_set contains the field
+        if self.gas_sponsorship_evidence_digest is None and "gas_sponsorship_evidence_digest" in self.model_fields_set:
+            _dict['gas_sponsorship_evidence_digest'] = None
+
         return _dict
 
     @classmethod
@@ -186,6 +229,12 @@ class PaymentReceipt(BaseModel):
             "fee_quote_digest": obj.get("fee_quote_digest"),
             "fee_quote_expires_at": obj.get("fee_quote_expires_at"),
             "settlement_amount_atomic": obj.get("settlement_amount_atomic"),
+            "gas_mode": obj.get("gas_mode"),
+            "buyer_native_fee_atomic": obj.get("buyer_native_fee_atomic"),
+            "sponsored_native_fee_atomic": obj.get("sponsored_native_fee_atomic"),
+            "sponsored_native_symbol": obj.get("sponsored_native_symbol"),
+            "tenant_gas_charge_micros": obj.get("tenant_gas_charge_micros"),
+            "gas_sponsorship_evidence_digest": obj.get("gas_sponsorship_evidence_digest"),
             "created_at": obj.get("created_at")
         })
         # store additional fields in additional_properties

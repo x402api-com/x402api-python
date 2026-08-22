@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum
 from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum
+from x402api.models.gas_mode_enum import GasModeEnum
 from x402api.models.network_fee_evidence import NetworkFeeEvidence
 from typing import Optional, Set
 from typing_extensions import Self
@@ -46,6 +47,9 @@ class NetworkFeeAlternative(BaseModel):
     native_decimals: Optional[Annotated[int, Field(le=30, strict=True, ge=0)]] = Field(alias="nativeDecimals")
     native_usd_quote_micros: Optional[Annotated[str, Field(strict=True, max_length=78)]] = Field(alias="nativeUsdQuoteMicros")
     estimated_fee_quote_micros: Optional[Annotated[str, Field(strict=True, max_length=78)]] = Field(alias="estimatedFeeQuoteMicros")
+    gas_mode: GasModeEnum = Field(alias="gasMode")
+    buyer_native_fee_atomic: Optional[Annotated[str, Field(strict=True, max_length=78)]] = Field(alias="buyerNativeFeeAtomic")
+    maximum_tenant_gas_reservation_micros: Annotated[str, Field(strict=True, max_length=78)] = Field(alias="maximumTenantGasReservationMicros")
     provider_disagreement_bps: Optional[Annotated[int, Field(le=10000, strict=True, ge=0)]] = Field(alias="providerDisagreementBps")
     fee_allowance_quote_micros: Annotated[str, Field(strict=True, max_length=78)] = Field(alias="feeAllowanceQuoteMicros")
     fee_allowance_atomic: Annotated[str, Field(strict=True, max_length=78)] = Field(alias="feeAllowanceAtomic")
@@ -57,7 +61,7 @@ class NetworkFeeAlternative(BaseModel):
     eligible: StrictBool
     exclusion_reason: Optional[Annotated[str, Field(strict=True, max_length=80)]] = Field(alias="exclusionReason")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["type", "version", "network", "assetId", "contractAddress", "feeMode", "quoteCurrency", "listedAmountAtomic", "feeAllowanceCapQuoteMicros", "estimatedNativeFeeAtomic", "nativeSymbol", "nativeDecimals", "nativeUsdQuoteMicros", "estimatedFeeQuoteMicros", "providerDisagreementBps", "feeAllowanceQuoteMicros", "feeAllowanceAtomic", "buyerPaymentAtomic", "tenantProceedsAtomic", "quoteExpiresAt", "feeEvidence", "feeEvidenceDigest", "eligible", "exclusionReason"]
+    __properties: ClassVar[List[str]] = ["type", "version", "network", "assetId", "contractAddress", "feeMode", "quoteCurrency", "listedAmountAtomic", "feeAllowanceCapQuoteMicros", "estimatedNativeFeeAtomic", "nativeSymbol", "nativeDecimals", "nativeUsdQuoteMicros", "estimatedFeeQuoteMicros", "gasMode", "buyerNativeFeeAtomic", "maximumTenantGasReservationMicros", "providerDisagreementBps", "feeAllowanceQuoteMicros", "feeAllowanceAtomic", "buyerPaymentAtomic", "tenantProceedsAtomic", "quoteExpiresAt", "feeEvidence", "feeEvidenceDigest", "eligible", "exclusionReason"]
 
     @field_validator('asset_id', mode="before")
     def asset_id_validate_regular_expression(cls, value):
@@ -106,6 +110,23 @@ class NetworkFeeAlternative(BaseModel):
         if value is None:
             return value
 
+        if isinstance(value, str) and not re.match(r"^(0|[1-9][0-9]*)$", value):
+            raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
+        return value
+
+    @field_validator('buyer_native_fee_atomic', mode="before")
+    def buyer_native_fee_atomic_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if isinstance(value, str) and not re.match(r"^(0|[1-9][0-9]*)$", value):
+            raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
+        return value
+
+    @field_validator('maximum_tenant_gas_reservation_micros', mode="before")
+    def maximum_tenant_gas_reservation_micros_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
         if isinstance(value, str) and not re.match(r"^(0|[1-9][0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
         return value
@@ -219,6 +240,11 @@ class NetworkFeeAlternative(BaseModel):
         if self.estimated_fee_quote_micros is None and "estimated_fee_quote_micros" in self.model_fields_set:
             _dict['estimatedFeeQuoteMicros'] = None
 
+        # set to None if buyer_native_fee_atomic (nullable) is None
+        # and model_fields_set contains the field
+        if self.buyer_native_fee_atomic is None and "buyer_native_fee_atomic" in self.model_fields_set:
+            _dict['buyerNativeFeeAtomic'] = None
+
         # set to None if provider_disagreement_bps (nullable) is None
         # and model_fields_set contains the field
         if self.provider_disagreement_bps is None and "provider_disagreement_bps" in self.model_fields_set:
@@ -260,6 +286,9 @@ class NetworkFeeAlternative(BaseModel):
             "nativeDecimals": obj.get("nativeDecimals"),
             "nativeUsdQuoteMicros": obj.get("nativeUsdQuoteMicros"),
             "estimatedFeeQuoteMicros": obj.get("estimatedFeeQuoteMicros"),
+            "gasMode": obj.get("gasMode"),
+            "buyerNativeFeeAtomic": obj.get("buyerNativeFeeAtomic"),
+            "maximumTenantGasReservationMicros": obj.get("maximumTenantGasReservationMicros"),
             "providerDisagreementBps": obj.get("providerDisagreementBps"),
             "feeAllowanceQuoteMicros": obj.get("feeAllowanceQuoteMicros"),
             "feeAllowanceAtomic": obj.get("feeAllowanceAtomic"),

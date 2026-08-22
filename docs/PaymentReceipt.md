@@ -18,6 +18,12 @@ Name | Type | Description | Notes
 **fee_quote_digest** | **str** |  | [readonly]
 **fee_quote_expires_at** | **datetime** |  | [readonly]
 **settlement_amount_atomic** | **str** |  | [readonly]
+**gas_mode** | **str** |  | [readonly]
+**buyer_native_fee_atomic** | **str** |  | [readonly]
+**sponsored_native_fee_atomic** | **str** |  | [readonly]
+**sponsored_native_symbol** | **str** |  | [readonly]
+**tenant_gas_charge_micros** | **str** |  | [readonly]
+**gas_sponsorship_evidence_digest** | **str** |  | [readonly]
 **created_at** | **datetime** |  | [readonly]
 
 ## Example

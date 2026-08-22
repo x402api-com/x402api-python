@@ -19,6 +19,9 @@ Name | Type | Description | Notes
 **native_decimals** | **int** |  |
 **native_usd_quote_micros** | **str** |  |
 **estimated_fee_quote_micros** | **str** |  |
+**gas_mode** | [**GasModeEnum**](GasModeEnum.md) |  |
+**buyer_native_fee_atomic** | **str** |  |
+**maximum_tenant_gas_reservation_micros** | **str** |  |
 **provider_disagreement_bps** | **int** |  |
 **fee_allowance_quote_micros** | **str** |  |
 **fee_allowance_atomic** | **str** |  |
