@@ -36,6 +36,19 @@ configuration = x402api.Configuration(
 
 `facilitator_get_supported()` and `receipt_verification_keys_retrieve()` are public and may be called without a token. All other operations use tenant bearer authentication.
 
+Tenant API keys must also grant the exact scope documented by each operation:
+
+- charges: `commerce:write` to create and `commerce:read` to retrieve;
+- network-fee quotes and resource reads: `resources:read`;
+- resource creation and new versions: `resources:write`;
+- orders: `orders:read`;
+- payment readiness: `payment-controls:read`;
+- payments, observations, and receipts: `payments:read`;
+- receiving-address capabilities and lists: `wallets:read`; and
+- wallet balances: `balances:read`.
+
+The SDK excludes dashboard-only mutations that require a human tenant owner with recent step-up. A tenant API key cannot call those operations regardless of its scopes.
+
 ## Quick start: create a charge
 
 ```python
@@ -118,18 +131,11 @@ Every function has `*_with_http_info` and `*_without_preload_content` variants i
 | [`OrdersAndPaymentsApi`](docs/OrdersAndPaymentsApi.md) | `payments_retrieve_receipt(id)` | `GET /v1/payments/{id}/receipt` |
 | [`OrdersAndPaymentsApi`](docs/OrdersAndPaymentsApi.md) | `receipt_verification_keys_retrieve()` | `GET /v1/payment-receipt-verification-keys` |
 | [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_get_control_capabilities()` | `GET /v1/receiving-address-control-capabilities` |
-| [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_create_control_challenge(idempotency_key, body)` | `POST /v1/receiving-address-control-challenges` |
 | [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_list(cursor=None, page_size=None)` | `GET /v1/receiving-addresses` |
-| [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_register(idempotency_key, body)` | `POST /v1/receiving-addresses` |
-| [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_activate(idempotency_key, readiness_id)` | `POST /v1/receiving-addresses/{readiness_id}/activate` |
-| [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_refresh_readiness(idempotency_key, readiness_id)` | `POST /v1/receiving-addresses/{readiness_id}/readiness-refreshes` |
-| [`ReceivingAddressesApi`](docs/ReceivingAddressesApi.md) | `receiving_addresses_rotate(idempotency_key, readiness_id, body)` | `POST /v1/receiving-addresses/{readiness_id}/rotations` |
 | [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_list(cursor=None, page_size=None)` | `GET /v1/resources` |
 | [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_create(idempotency_key, resource_create)` | `POST /v1/resources` |
 | [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_list_versions(resource_id, cursor=None, page_size=None)` | `GET /v1/resources/{resource_id}/versions` |
 | [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_create_version(idempotency_key, resource_id, body)` | `POST /v1/resources/{resource_id}/versions` |
-| [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_activate_version(idempotency_key, resource_id, version_id, body)` | `POST /v1/resources/{resource_id}/versions/{version_id}/activate` |
-| [`ResourcesAndPricingApi`](docs/ResourcesAndPricingApi.md) | `resources_retire_version(idempotency_key, resource_id, version_id, body)` | `POST /v1/resources/{resource_id}/versions/{version_id}/retire` |
 | [`WalletsAndTransfersApi`](docs/WalletsAndTransfersApi.md) | `wallets_retrieve_balance(id, finality=None)` | `GET /v1/wallets/{id}/balances` |
 
 All models are exported from `x402api`; individual model documentation is in [`docs/`](docs/). See [`USAGE.md`](USAGE.md) for more complete patterns.
