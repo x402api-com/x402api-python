@@ -24,9 +24,7 @@ from x402api.models.network_fee_preview_response import NetworkFeePreviewRespons
 from x402api.models.resource import Resource
 from x402api.models.resource_create import ResourceCreate
 from x402api.models.resource_version import ResourceVersion
-from x402api.models.resource_version_activate import ResourceVersionActivate
 from x402api.models.resource_version_create import ResourceVersionCreate
-from x402api.models.resource_version_retire import ResourceVersionRetire
 
 from x402api.api_client import ApiClient, RequestSerialized
 from x402api.api_response import ApiResponse
@@ -65,7 +63,7 @@ class ResourcesAndPricingApi:
     ) -> NetworkFeePreviewResponse:
         """Create a network-fee quote
 
-        Preview bounded network fees for the requested resource prices and rails.
+        Preview bounded network fees for the requested resource prices and rails. Requires a tenant API key with the `resources:read` scope.
 
         :param network_fee_preview: (required)
         :type network_fee_preview: NetworkFeePreview
@@ -133,7 +131,7 @@ class ResourcesAndPricingApi:
     ) -> ApiResponse[NetworkFeePreviewResponse]:
         """Create a network-fee quote
 
-        Preview bounded network fees for the requested resource prices and rails.
+        Preview bounded network fees for the requested resource prices and rails. Requires a tenant API key with the `resources:read` scope.
 
         :param network_fee_preview: (required)
         :type network_fee_preview: NetworkFeePreview
@@ -201,7 +199,7 @@ class ResourcesAndPricingApi:
     ) -> RESTResponseType:
         """Create a network-fee quote
 
-        Preview bounded network fees for the requested resource prices and rails.
+        Preview bounded network fees for the requested resource prices and rails. Requires a tenant API key with the `resources:read` scope.
 
         :param network_fee_preview: (required)
         :type network_fee_preview: NetworkFeePreview
@@ -324,331 +322,6 @@ class ResourcesAndPricingApi:
 
 
     @validate_call
-    def resources_activate_version(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_activate: ResourceVersionActivate,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ResourceVersion:
-        """Activate a resource version
-
-        Activate one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_activate: (required)
-        :type resource_version_activate: ResourceVersionActivate
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_activate_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_activate=resource_version_activate,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def resources_activate_version_with_http_info(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_activate: ResourceVersionActivate,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ResourceVersion]:
-        """Activate a resource version
-
-        Activate one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_activate: (required)
-        :type resource_version_activate: ResourceVersionActivate
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_activate_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_activate=resource_version_activate,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def resources_activate_version_without_preload_content(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_activate: ResourceVersionActivate,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Activate a resource version
-
-        Activate one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_activate: (required)
-        :type resource_version_activate: ResourceVersionActivate
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_activate_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_activate=resource_version_activate,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _resources_activate_version_serialize(
-        self,
-        idempotency_key,
-        resource_id,
-        version_id,
-        resource_version_activate,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if resource_id is not None:
-            _path_params['resource_id'] = resource_id
-        if version_id is not None:
-            _path_params['version_id'] = version_id
-        # process the query parameters
-        # process the header parameters
-        if idempotency_key is not None:
-            _header_params['Idempotency-Key'] = idempotency_key
-        # process the form parameters
-        # process the body parameter
-        if resource_version_activate is not None:
-            _body_params = resource_version_activate
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'tenantApiKey'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v1/resources/{resource_id}/versions/{version_id}/activate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def resources_create(
         self,
         idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
@@ -668,7 +341,7 @@ class ResourcesAndPricingApi:
     ) -> Resource:
         """Create a resource
 
-        Create one tenant resource idempotently.
+        Create one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -740,7 +413,7 @@ class ResourcesAndPricingApi:
     ) -> ApiResponse[Resource]:
         """Create a resource
 
-        Create one tenant resource idempotently.
+        Create one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -812,7 +485,7 @@ class ResourcesAndPricingApi:
     ) -> RESTResponseType:
         """Create a resource
 
-        Create one tenant resource idempotently.
+        Create one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -961,7 +634,7 @@ class ResourcesAndPricingApi:
     ) -> ResourceVersion:
         """Create a resource version
 
-        Create an immutable priced version of one tenant resource idempotently.
+        Create an immutable priced version of one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -1038,7 +711,7 @@ class ResourcesAndPricingApi:
     ) -> ApiResponse[ResourceVersion]:
         """Create a resource version
 
-        Create an immutable priced version of one tenant resource idempotently.
+        Create an immutable priced version of one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -1115,7 +788,7 @@ class ResourcesAndPricingApi:
     ) -> RESTResponseType:
         """Create a resource version
 
-        Create an immutable priced version of one tenant resource idempotently.
+        Create an immutable priced version of one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -1270,7 +943,7 @@ class ResourcesAndPricingApi:
     ) -> List[Resource]:
         """List resources
 
-        List tenant resources and their visible versions using opaque cursor pagination.
+        List tenant resources and their visible versions using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -1342,7 +1015,7 @@ class ResourcesAndPricingApi:
     ) -> ApiResponse[List[Resource]]:
         """List resources
 
-        List tenant resources and their visible versions using opaque cursor pagination.
+        List tenant resources and their visible versions using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -1414,7 +1087,7 @@ class ResourcesAndPricingApi:
     ) -> RESTResponseType:
         """List resources
 
-        List tenant resources and their visible versions using opaque cursor pagination.
+        List tenant resources and their visible versions using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -1554,7 +1227,7 @@ class ResourcesAndPricingApi:
     ) -> List[ResourceVersion]:
         """List resource versions
 
-        List immutable versions of one tenant resource using opaque cursor pagination.
+        List immutable versions of one tenant resource using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param resource_id: (required)
         :type resource_id: UUID
@@ -1630,7 +1303,7 @@ class ResourcesAndPricingApi:
     ) -> ApiResponse[List[ResourceVersion]]:
         """List resource versions
 
-        List immutable versions of one tenant resource using opaque cursor pagination.
+        List immutable versions of one tenant resource using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param resource_id: (required)
         :type resource_id: UUID
@@ -1706,7 +1379,7 @@ class ResourcesAndPricingApi:
     ) -> RESTResponseType:
         """List resource versions
 
-        List immutable versions of one tenant resource using opaque cursor pagination.
+        List immutable versions of one tenant resource using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
         :param resource_id: (required)
         :type resource_id: UUID
@@ -1816,331 +1489,6 @@ class ResourcesAndPricingApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v1/resources/{resource_id}/versions',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def resources_retire_version(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_retire: ResourceVersionRetire,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ResourceVersion:
-        """Retire a resource version
-
-        Retire one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_retire: (required)
-        :type resource_version_retire: ResourceVersionRetire
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_retire_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_retire=resource_version_retire,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def resources_retire_version_with_http_info(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_retire: ResourceVersionRetire,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ResourceVersion]:
-        """Retire a resource version
-
-        Retire one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_retire: (required)
-        :type resource_version_retire: ResourceVersionRetire
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_retire_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_retire=resource_version_retire,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def resources_retire_version_without_preload_content(
-        self,
-        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=160, description="Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.")],
-        resource_id: UUID,
-        version_id: UUID,
-        resource_version_retire: ResourceVersionRetire,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Retire a resource version
-
-        Retire one immutable resource version idempotently.
-
-        :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
-        :type idempotency_key: str
-        :param resource_id: (required)
-        :type resource_id: UUID
-        :param version_id: (required)
-        :type version_id: UUID
-        :param resource_version_retire: (required)
-        :type resource_version_retire: ResourceVersionRetire
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._resources_retire_version_serialize(
-            idempotency_key=idempotency_key,
-            resource_id=resource_id,
-            version_id=version_id,
-            resource_version_retire=resource_version_retire,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResourceVersion",
-            '409': "ApiErrorEnvelope",
-            'default': "ApiErrorEnvelope",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _resources_retire_version_serialize(
-        self,
-        idempotency_key,
-        resource_id,
-        version_id,
-        resource_version_retire,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if resource_id is not None:
-            _path_params['resource_id'] = resource_id
-        if version_id is not None:
-            _path_params['version_id'] = version_id
-        # process the query parameters
-        # process the header parameters
-        if idempotency_key is not None:
-            _header_params['Idempotency-Key'] = idempotency_key
-        # process the form parameters
-        # process the body parameter
-        if resource_version_retire is not None:
-            _body_params = resource_version_retire
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'tenantApiKey'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/v1/resources/{resource_id}/versions/{version_id}/retire',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

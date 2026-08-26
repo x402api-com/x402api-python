@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 Retrieve payment readiness
 
-Return the tenant's current external-wallet payment-readiness projection.
+Return the tenant's current external-wallet payment-readiness projection. Requires a tenant API key with the `payment-controls:read` scope.
 
 ### Example
 

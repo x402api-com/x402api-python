@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 List orders
 
-List tenant-visible orders using opaque cursor pagination.
+List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
 ### Example
 
@@ -99,7 +99,7 @@ Name | Type | Description  | Notes
 
 Retrieve an order
 
-Retrieve one tenant-visible order by its canonical identifier.
+Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
 ### Example
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 List payments
 
-List tenant-visible payments using opaque cursor pagination.
+List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
 ### Example
 
@@ -259,7 +259,7 @@ Name | Type | Description  | Notes
 
 List payment observations
 
-List finalized and pending chain observations for one tenant-visible payment.
+List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
 ### Example
 
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 
 Retrieve a payment
 
-Retrieve one tenant-visible payment by its canonical identifier.
+Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
 ### Example
 
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 
 Retrieve a payment receipt
 
-Retrieve the signed receipt projection for one tenant-visible payment.
+Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
 ### Example
 
@@ -500,7 +500,7 @@ Name | Type | Description  | Notes
 
 Retrieve receipt verification keys
 
-Return the public receipt verification-key history for out-of-band-pinned verification.
+Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
 ### Example
 

@@ -53,7 +53,7 @@ class FacilitatorDiscoveryApi:
     ) -> SupportedResponse:
         """Get supported facilitator profiles
 
-        Return the currently approved public x402 facilitator profiles.
+        Return the currently approved public x402 facilitator profiles. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -117,7 +117,7 @@ class FacilitatorDiscoveryApi:
     ) -> ApiResponse[SupportedResponse]:
         """Get supported facilitator profiles
 
-        Return the currently approved public x402 facilitator profiles.
+        Return the currently approved public x402 facilitator profiles. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -181,7 +181,7 @@ class FacilitatorDiscoveryApi:
     ) -> RESTResponseType:
         """Get supported facilitator profiles
 
-        Return the currently approved public x402 facilitator profiles.
+        Return the currently approved public x402 facilitator profiles. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

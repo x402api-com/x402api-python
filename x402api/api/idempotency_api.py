@@ -55,7 +55,7 @@ class IdempotencyApi:
     ) -> IdempotencyOutcome:
         """Get an idempotency outcome
 
-        Return the authoritative tenant-scoped outcome for a durable mutation key.
+        Return the authoritative tenant-scoped outcome for a durable mutation key. Requires an authenticated tenant API key; no additional scope is required.
 
         :param idempotency_key: (required)
         :type idempotency_key: str
@@ -123,7 +123,7 @@ class IdempotencyApi:
     ) -> ApiResponse[IdempotencyOutcome]:
         """Get an idempotency outcome
 
-        Return the authoritative tenant-scoped outcome for a durable mutation key.
+        Return the authoritative tenant-scoped outcome for a durable mutation key. Requires an authenticated tenant API key; no additional scope is required.
 
         :param idempotency_key: (required)
         :type idempotency_key: str
@@ -191,7 +191,7 @@ class IdempotencyApi:
     ) -> RESTResponseType:
         """Get an idempotency outcome
 
-        Return the authoritative tenant-scoped outcome for a durable mutation key.
+        Return the authoritative tenant-scoped outcome for a durable mutation key. Requires an authenticated tenant API key; no additional scope is required.
 
         :param idempotency_key: (required)
         :type idempotency_key: str

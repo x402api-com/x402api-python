@@ -58,7 +58,7 @@ class WalletsAndTransfersApi:
     ) -> WalletBalanceResponse:
         """Retrieve wallet balances
 
-        Retrieve finalized external-wallet balance observations at the requested finality.
+        Retrieve finalized external-wallet balance observations at the requested finality. Requires a tenant API key with the `balances:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -130,7 +130,7 @@ class WalletsAndTransfersApi:
     ) -> ApiResponse[WalletBalanceResponse]:
         """Retrieve wallet balances
 
-        Retrieve finalized external-wallet balance observations at the requested finality.
+        Retrieve finalized external-wallet balance observations at the requested finality. Requires a tenant API key with the `balances:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -202,7 +202,7 @@ class WalletsAndTransfersApi:
     ) -> RESTResponseType:
         """Retrieve wallet balances
 
-        Retrieve finalized external-wallet balance observations at the requested finality.
+        Retrieve finalized external-wallet balance observations at the requested finality. Requires a tenant API key with the `balances:read` scope.
 
         :param id: (required)
         :type id: UUID

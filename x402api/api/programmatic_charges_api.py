@@ -59,7 +59,7 @@ class ProgrammaticChargesApi:
     ) -> DynamicChargeResponse:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge with immutable x402 payment terms.
+        Create one idempotent dynamic charge with immutable x402 payment terms. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -133,7 +133,7 @@ class ProgrammaticChargesApi:
     ) -> ApiResponse[DynamicChargeResponse]:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge with immutable x402 payment terms.
+        Create one idempotent dynamic charge with immutable x402 payment terms. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -207,7 +207,7 @@ class ProgrammaticChargesApi:
     ) -> RESTResponseType:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge with immutable x402 payment terms.
+        Create one idempotent dynamic charge with immutable x402 payment terms. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -356,7 +356,7 @@ class ProgrammaticChargesApi:
     ) -> DynamicChargeResponse:
         """Retrieve a programmatic charge
 
-        Retrieve the frozen terms and current projected status of a tenant charge.
+        Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
 
         :param charge_id: (required)
         :type charge_id: UUID
@@ -425,7 +425,7 @@ class ProgrammaticChargesApi:
     ) -> ApiResponse[DynamicChargeResponse]:
         """Retrieve a programmatic charge
 
-        Retrieve the frozen terms and current projected status of a tenant charge.
+        Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
 
         :param charge_id: (required)
         :type charge_id: UUID
@@ -494,7 +494,7 @@ class ProgrammaticChargesApi:
     ) -> RESTResponseType:
         """Retrieve a programmatic charge
 
-        Retrieve the frozen terms and current projected status of a tenant charge.
+        Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
 
         :param charge_id: (required)
         :type charge_id: UUID

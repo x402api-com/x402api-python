@@ -63,7 +63,7 @@ class OrdersAndPaymentsApi:
     ) -> List[Order]:
         """List orders
 
-        List tenant-visible orders using opaque cursor pagination.
+        List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -135,7 +135,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[List[Order]]:
         """List orders
 
-        List tenant-visible orders using opaque cursor pagination.
+        List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -207,7 +207,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """List orders
 
-        List tenant-visible orders using opaque cursor pagination.
+        List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -345,7 +345,7 @@ class OrdersAndPaymentsApi:
     ) -> Order:
         """Retrieve an order
 
-        Retrieve one tenant-visible order by its canonical identifier.
+        Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -413,7 +413,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[Order]:
         """Retrieve an order
 
-        Retrieve one tenant-visible order by its canonical identifier.
+        Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -481,7 +481,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """Retrieve an order
 
-        Retrieve one tenant-visible order by its canonical identifier.
+        Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -610,7 +610,7 @@ class OrdersAndPaymentsApi:
     ) -> List[SettlementJob]:
         """List payments
 
-        List tenant-visible payments using opaque cursor pagination.
+        List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -682,7 +682,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[List[SettlementJob]]:
         """List payments
 
-        List tenant-visible payments using opaque cursor pagination.
+        List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -754,7 +754,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """List payments
 
-        List tenant-visible payments using opaque cursor pagination.
+        List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
         :param cursor: Opaque pagination cursor from X-X402API-Next-Cursor or rel=next Link.
         :type cursor: str
@@ -894,7 +894,7 @@ class OrdersAndPaymentsApi:
     ) -> List[SettlementChainObservation]:
         """List payment observations
 
-        List finalized and pending chain observations for one tenant-visible payment.
+        List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -970,7 +970,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[List[SettlementChainObservation]]:
         """List payment observations
 
-        List finalized and pending chain observations for one tenant-visible payment.
+        List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1046,7 +1046,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """List payment observations
 
-        List finalized and pending chain observations for one tenant-visible payment.
+        List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1190,7 +1190,7 @@ class OrdersAndPaymentsApi:
     ) -> SettlementJob:
         """Retrieve a payment
 
-        Retrieve one tenant-visible payment by its canonical identifier.
+        Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1258,7 +1258,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[SettlementJob]:
         """Retrieve a payment
 
-        Retrieve one tenant-visible payment by its canonical identifier.
+        Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1326,7 +1326,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """Retrieve a payment
 
-        Retrieve one tenant-visible payment by its canonical identifier.
+        Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1454,7 +1454,7 @@ class OrdersAndPaymentsApi:
     ) -> PaymentReceipt:
         """Retrieve a payment receipt
 
-        Retrieve the signed receipt projection for one tenant-visible payment.
+        Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1522,7 +1522,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[PaymentReceipt]:
         """Retrieve a payment receipt
 
-        Retrieve the signed receipt projection for one tenant-visible payment.
+        Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1590,7 +1590,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """Retrieve a payment receipt
 
-        Retrieve the signed receipt projection for one tenant-visible payment.
+        Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
         :param id: (required)
         :type id: UUID
@@ -1717,7 +1717,7 @@ class OrdersAndPaymentsApi:
     ) -> ReceiptVerificationKeyHistory:
         """Retrieve receipt verification keys
 
-        Return the public receipt verification-key history for out-of-band-pinned verification.
+        Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1781,7 +1781,7 @@ class OrdersAndPaymentsApi:
     ) -> ApiResponse[ReceiptVerificationKeyHistory]:
         """Retrieve receipt verification keys
 
-        Return the public receipt verification-key history for out-of-band-pinned verification.
+        Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1845,7 +1845,7 @@ class OrdersAndPaymentsApi:
     ) -> RESTResponseType:
         """Retrieve receipt verification keys
 
-        Return the public receipt verification-key history for out-of-band-pinned verification.
+        Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
