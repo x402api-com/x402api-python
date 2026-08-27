@@ -33,20 +33,20 @@ class DynamicChargeResponse(BaseModel):
     """
     DynamicChargeResponse
     """ # noqa: E501
-    charge_id: UUID
+    charge_id: UUID = Field(description="Immutable challenge UUID created for this charge.")
     charge_digest: Annotated[str, Field(strict=True)]
     order_id: UUID
-    status: StrictStr
+    status: StrictStr = Field(description="Current projected order status; payment terms remain immutable.")
     resource_version_id: UUID
-    payment_identifier: StrictStr
+    payment_identifier: StrictStr = Field(description="Opaque server challenge handle. Return it to the buyer as X-X402API-Challenge-Handle; it is not the buyer payment identifier.")
     expires_at: datetime
     created_at: datetime
     prices: List[DynamicChargePrice]
     requested_expires_in_seconds: StrictInt
     metadata: Dict[str, Any] = Field(description="Tenant application metadata frozen into the charge digest. Maximum canonical size is 16 KiB; floating-point numbers are not accepted.")
     metadata_digest: Annotated[str, Field(strict=True)]
-    payment_required: Optional[Any]
-    payment_required_header: StrictStr
+    payment_required: Optional[Any] = Field(description="Complete immutable x402 v2 PAYMENT-REQUIRED document.")
+    payment_required_header: StrictStr = Field(description="Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header.")
     eligible_alternatives: List[NetworkFeeAlternative]
     fee_policy: FeePolicyDocument
     fee_quote_digest: Annotated[str, Field(strict=True)]
