@@ -20,8 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
-from x402api.models.fee_policy_document import FeePolicyDocument
-from x402api.models.network_fee_alternative import NetworkFeeAlternative
+from x402api.models.public_fee_policy_document import PublicFeePolicyDocument
+from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +30,8 @@ class NetworkFeePreviewResponse(BaseModel):
     """
     NetworkFeePreviewResponse
     """ # noqa: E501
-    fee_policy: FeePolicyDocument
-    alternatives: List[NetworkFeeAlternative]
+    fee_policy: PublicFeePolicyDocument
+    alternatives: List[PublicNetworkFeeAlternative]
     fee_quote_digest: Annotated[str, Field(strict=True)]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["fee_policy", "alternatives", "fee_quote_digest"]
@@ -111,8 +111,8 @@ class NetworkFeePreviewResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "fee_policy": FeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
-            "alternatives": [NetworkFeeAlternative.from_dict(_item) for _item in obj["alternatives"]] if obj.get("alternatives") is not None else None,
+            "fee_policy": PublicFeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
+            "alternatives": [PublicNetworkFeeAlternative.from_dict(_item) for _item in obj["alternatives"]] if obj.get("alternatives") is not None else None,
             "fee_quote_digest": obj.get("fee_quote_digest")
         })
         # store additional fields in additional_properties

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fee_policy** | [**FeePolicyDocument**](FeePolicyDocument.md) |  |
-**alternatives** | [**List[NetworkFeeAlternative]**](NetworkFeeAlternative.md) |  |
+**fee_policy** | [**PublicFeePolicyDocument**](PublicFeePolicyDocument.md) |  |
+**alternatives** | [**List[PublicNetworkFeeAlternative]**](PublicNetworkFeeAlternative.md) |  |
 **fee_quote_digest** | **str** |  |
 
 ## Example

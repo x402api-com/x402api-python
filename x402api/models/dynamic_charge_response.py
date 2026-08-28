@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
 from x402api.models.dynamic_charge_price import DynamicChargePrice
-from x402api.models.fee_policy_document import FeePolicyDocument
-from x402api.models.network_fee_alternative import NetworkFeeAlternative
+from x402api.models.public_fee_policy_document import PublicFeePolicyDocument
+from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -47,8 +47,8 @@ class DynamicChargeResponse(BaseModel):
     metadata_digest: Annotated[str, Field(strict=True)]
     payment_required: Optional[Any] = Field(description="Complete immutable x402 v2 PAYMENT-REQUIRED document.")
     payment_required_header: StrictStr = Field(description="Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header.")
-    eligible_alternatives: List[NetworkFeeAlternative]
-    fee_policy: FeePolicyDocument
+    eligible_alternatives: List[PublicNetworkFeeAlternative]
+    fee_policy: PublicFeePolicyDocument
     fee_quote_digest: Annotated[str, Field(strict=True)]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["charge_id", "charge_digest", "order_id", "status", "resource_version_id", "payment_identifier", "expires_at", "created_at", "prices", "requested_expires_in_seconds", "metadata", "metadata_digest", "payment_required", "payment_required_header", "eligible_alternatives", "fee_policy", "fee_quote_digest"]
@@ -168,8 +168,8 @@ class DynamicChargeResponse(BaseModel):
             "metadata_digest": obj.get("metadata_digest"),
             "payment_required": obj.get("payment_required"),
             "payment_required_header": obj.get("payment_required_header"),
-            "eligible_alternatives": [NetworkFeeAlternative.from_dict(_item) for _item in obj["eligible_alternatives"]] if obj.get("eligible_alternatives") is not None else None,
-            "fee_policy": FeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
+            "eligible_alternatives": [PublicNetworkFeeAlternative.from_dict(_item) for _item in obj["eligible_alternatives"]] if obj.get("eligible_alternatives") is not None else None,
+            "fee_policy": PublicFeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
             "fee_quote_digest": obj.get("fee_quote_digest")
         })
         # store additional fields in additional_properties

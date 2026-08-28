@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
+from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum
+from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class NativeUsdObservationEvidence(BaseModel):
+class PublicFeePolicyDocument(BaseModel):
     """
-    NativeUsdObservationEvidence
+    PublicFeePolicyDocument
     """ # noqa: E501
-    source: Annotated[str, Field(strict=True, max_length=128)]
-    native_usd_quote_micros: Annotated[str, Field(strict=True, max_length=78)] = Field(alias="nativeUsdQuoteMicros")
-    observed_at: datetime = Field(alias="observedAt")
+    type: StrictStr
+    version: Annotated[int, Field(strict=True, ge=1)]
+    fee_mode: FeePolicyModeInputEnum = Field(alias="feeMode")
+    quote_currency: FeePolicyQuoteCurrencyInputEnum = Field(alias="quoteCurrency")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["source", "nativeUsdQuoteMicros", "observedAt"]
-
-    @field_validator('native_usd_quote_micros', mode="before")
-    def native_usd_quote_micros_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(r"^[1-9][0-9]*$", value):
-            raise ValueError(r"must validate the regular expression /^[1-9][0-9]*$/")
-        return value
+    __properties: ClassVar[List[str]] = ["type", "version", "feeMode", "quoteCurrency"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -60,7 +55,7 @@ class NativeUsdObservationEvidence(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NativeUsdObservationEvidence from a JSON string"""
+        """Create an instance of PublicFeePolicyDocument from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -92,7 +87,7 @@ class NativeUsdObservationEvidence(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NativeUsdObservationEvidence from a dict"""
+        """Create an instance of PublicFeePolicyDocument from a dict"""
         if obj is None:
             return None
 
@@ -100,9 +95,10 @@ class NativeUsdObservationEvidence(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "source": obj.get("source"),
-            "nativeUsdQuoteMicros": obj.get("nativeUsdQuoteMicros"),
-            "observedAt": obj.get("observedAt")
+            "type": obj.get("type"),
+            "version": obj.get("version"),
+            "feeMode": obj.get("feeMode"),
+            "quoteCurrency": obj.get("quoteCurrency")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

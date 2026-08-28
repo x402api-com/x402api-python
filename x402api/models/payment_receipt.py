@@ -21,9 +21,8 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
-from x402api.models.fee_policy_document import FeePolicyDocument
-from x402api.models.network_fee_alternative import NetworkFeeAlternative
-from x402api.models.network_fee_evidence import NetworkFeeEvidence
+from x402api.models.public_fee_policy_document import PublicFeePolicyDocument
+from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -39,9 +38,9 @@ class PaymentReceipt(BaseModel):
     receipt_digest: StrictStr
     signature: StrictStr
     signing_key_version: StrictStr
-    eligible_alternatives: List[NetworkFeeAlternative]
-    fee_policy: Optional[FeePolicyDocument]
-    fee_evidence: Optional[NetworkFeeEvidence]
+    eligible_alternatives: List[PublicNetworkFeeAlternative]
+    fee_policy: Optional[PublicFeePolicyDocument]
+    fee_evidence: Optional[Dict[str, Any]]
     fee_quote_digest: Optional[StrictStr]
     fee_quote_expires_at: Optional[datetime]
     settlement_amount_atomic: StrictStr
@@ -146,9 +145,6 @@ class PaymentReceipt(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of fee_policy
         if self.fee_policy:
             _dict['fee_policy'] = self.fee_policy.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of fee_evidence
-        if self.fee_evidence:
-            _dict['fee_evidence'] = self.fee_evidence.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -223,9 +219,9 @@ class PaymentReceipt(BaseModel):
             "receipt_digest": obj.get("receipt_digest"),
             "signature": obj.get("signature"),
             "signing_key_version": obj.get("signing_key_version"),
-            "eligible_alternatives": [NetworkFeeAlternative.from_dict(_item) for _item in obj["eligible_alternatives"]] if obj.get("eligible_alternatives") is not None else None,
-            "fee_policy": FeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
-            "fee_evidence": NetworkFeeEvidence.from_dict(obj["fee_evidence"]) if obj.get("fee_evidence") is not None else None,
+            "eligible_alternatives": [PublicNetworkFeeAlternative.from_dict(_item) for _item in obj["eligible_alternatives"]] if obj.get("eligible_alternatives") is not None else None,
+            "fee_policy": PublicFeePolicyDocument.from_dict(obj["fee_policy"]) if obj.get("fee_policy") is not None else None,
+            "fee_evidence": obj.get("fee_evidence"),
             "fee_quote_digest": obj.get("fee_quote_digest"),
             "fee_quote_expires_at": obj.get("fee_quote_expires_at"),
             "settlement_amount_atomic": obj.get("settlement_amount_atomic"),

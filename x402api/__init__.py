@@ -52,17 +52,12 @@ __all__ = [
     "ExternalReceivingAddress",
     "ExternalReceivingAddressCreate",
     "ExternalReceivingAddressRotation",
-    "FeePolicyDocument",
     "FeePolicyModeInputEnum",
     "FeePolicyQuoteCurrencyInputEnum",
     "GasModeEnum",
     "HTTPMethodEnum",
     "IdempotencyOutcome",
     "IdempotencyOutcomeStateEnum",
-    "NativeFeeObservationEvidence",
-    "NativeUsdObservationEvidence",
-    "NetworkFeeAlternative",
-    "NetworkFeeEvidence",
     "NetworkFeePreview",
     "NetworkFeePreviewPrice",
     "NetworkFeePreviewResponse",
@@ -79,6 +74,8 @@ __all__ = [
     "PaymentReadinessStateEnum",
     "PaymentReceipt",
     "PriceInput",
+    "PublicFeePolicyDocument",
+    "PublicNetworkFeeAlternative",
     "ReadinessStatusEnum",
     "ReceiptVerificationKey",
     "ReceiptVerificationKeyHistory",
@@ -166,17 +163,12 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.external_receiving_address import ExternalReceivingAddress as ExternalReceivingAddress
     from x402api.models.external_receiving_address_create import ExternalReceivingAddressCreate as ExternalReceivingAddressCreate
     from x402api.models.external_receiving_address_rotation import ExternalReceivingAddressRotation as ExternalReceivingAddressRotation
-    from x402api.models.fee_policy_document import FeePolicyDocument as FeePolicyDocument
     from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum as FeePolicyModeInputEnum
     from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum as FeePolicyQuoteCurrencyInputEnum
     from x402api.models.gas_mode_enum import GasModeEnum as GasModeEnum
     from x402api.models.http_method_enum import HTTPMethodEnum as HTTPMethodEnum
     from x402api.models.idempotency_outcome import IdempotencyOutcome as IdempotencyOutcome
     from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum as IdempotencyOutcomeStateEnum
-    from x402api.models.native_fee_observation_evidence import NativeFeeObservationEvidence as NativeFeeObservationEvidence
-    from x402api.models.native_usd_observation_evidence import NativeUsdObservationEvidence as NativeUsdObservationEvidence
-    from x402api.models.network_fee_alternative import NetworkFeeAlternative as NetworkFeeAlternative
-    from x402api.models.network_fee_evidence import NetworkFeeEvidence as NetworkFeeEvidence
     from x402api.models.network_fee_preview import NetworkFeePreview as NetworkFeePreview
     from x402api.models.network_fee_preview_price import NetworkFeePreviewPrice as NetworkFeePreviewPrice
     from x402api.models.network_fee_preview_response import NetworkFeePreviewResponse as NetworkFeePreviewResponse
@@ -193,6 +185,8 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.payment_readiness_state_enum import PaymentReadinessStateEnum as PaymentReadinessStateEnum
     from x402api.models.payment_receipt import PaymentReceipt as PaymentReceipt
     from x402api.models.price_input import PriceInput as PriceInput
+    from x402api.models.public_fee_policy_document import PublicFeePolicyDocument as PublicFeePolicyDocument
+    from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative as PublicNetworkFeeAlternative
     from x402api.models.readiness_status_enum import ReadinessStatusEnum as ReadinessStatusEnum
     from x402api.models.receipt_verification_key import ReceiptVerificationKey as ReceiptVerificationKey
     from x402api.models.receipt_verification_key_history import ReceiptVerificationKeyHistory as ReceiptVerificationKeyHistory
@@ -286,17 +280,12 @@ from x402api.models.external_address_proof_method_enum import ExternalAddressPro
 from x402api.models.external_receiving_address import ExternalReceivingAddress as ExternalReceivingAddress
 from x402api.models.external_receiving_address_create import ExternalReceivingAddressCreate as ExternalReceivingAddressCreate
 from x402api.models.external_receiving_address_rotation import ExternalReceivingAddressRotation as ExternalReceivingAddressRotation
-from x402api.models.fee_policy_document import FeePolicyDocument as FeePolicyDocument
 from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum as FeePolicyModeInputEnum
 from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum as FeePolicyQuoteCurrencyInputEnum
 from x402api.models.gas_mode_enum import GasModeEnum as GasModeEnum
 from x402api.models.http_method_enum import HTTPMethodEnum as HTTPMethodEnum
 from x402api.models.idempotency_outcome import IdempotencyOutcome as IdempotencyOutcome
 from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum as IdempotencyOutcomeStateEnum
-from x402api.models.native_fee_observation_evidence import NativeFeeObservationEvidence as NativeFeeObservationEvidence
-from x402api.models.native_usd_observation_evidence import NativeUsdObservationEvidence as NativeUsdObservationEvidence
-from x402api.models.network_fee_alternative import NetworkFeeAlternative as NetworkFeeAlternative
-from x402api.models.network_fee_evidence import NetworkFeeEvidence as NetworkFeeEvidence
 from x402api.models.network_fee_preview import NetworkFeePreview as NetworkFeePreview
 from x402api.models.network_fee_preview_price import NetworkFeePreviewPrice as NetworkFeePreviewPrice
 from x402api.models.network_fee_preview_response import NetworkFeePreviewResponse as NetworkFeePreviewResponse
@@ -313,6 +302,8 @@ from x402api.models.payment_readiness_rail_status_enum import PaymentReadinessRa
 from x402api.models.payment_readiness_state_enum import PaymentReadinessStateEnum as PaymentReadinessStateEnum
 from x402api.models.payment_receipt import PaymentReceipt as PaymentReceipt
 from x402api.models.price_input import PriceInput as PriceInput
+from x402api.models.public_fee_policy_document import PublicFeePolicyDocument as PublicFeePolicyDocument
+from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative as PublicNetworkFeeAlternative
 from x402api.models.readiness_status_enum import ReadinessStatusEnum as ReadinessStatusEnum
 from x402api.models.receipt_verification_key import ReceiptVerificationKey as ReceiptVerificationKey
 from x402api.models.receipt_verification_key_history import ReceiptVerificationKeyHistory as ReceiptVerificationKeyHistory

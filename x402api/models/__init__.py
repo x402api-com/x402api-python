@@ -31,17 +31,12 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.external_receiving_address import ExternalReceivingAddress
     from x402api.models.external_receiving_address_create import ExternalReceivingAddressCreate
     from x402api.models.external_receiving_address_rotation import ExternalReceivingAddressRotation
-    from x402api.models.fee_policy_document import FeePolicyDocument
     from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum
     from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum
     from x402api.models.gas_mode_enum import GasModeEnum
     from x402api.models.http_method_enum import HTTPMethodEnum
     from x402api.models.idempotency_outcome import IdempotencyOutcome
     from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum
-    from x402api.models.native_fee_observation_evidence import NativeFeeObservationEvidence
-    from x402api.models.native_usd_observation_evidence import NativeUsdObservationEvidence
-    from x402api.models.network_fee_alternative import NetworkFeeAlternative
-    from x402api.models.network_fee_evidence import NetworkFeeEvidence
     from x402api.models.network_fee_preview import NetworkFeePreview
     from x402api.models.network_fee_preview_price import NetworkFeePreviewPrice
     from x402api.models.network_fee_preview_response import NetworkFeePreviewResponse
@@ -58,6 +53,8 @@ if __import__("typing").TYPE_CHECKING:
     from x402api.models.payment_readiness_state_enum import PaymentReadinessStateEnum
     from x402api.models.payment_receipt import PaymentReceipt
     from x402api.models.price_input import PriceInput
+    from x402api.models.public_fee_policy_document import PublicFeePolicyDocument
+    from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative
     from x402api.models.readiness_status_enum import ReadinessStatusEnum
     from x402api.models.receipt_verification_key import ReceiptVerificationKey
     from x402api.models.receipt_verification_key_history import ReceiptVerificationKeyHistory
@@ -128,17 +125,12 @@ from x402api.models.external_address_proof_method_enum import ExternalAddressPro
 from x402api.models.external_receiving_address import ExternalReceivingAddress
 from x402api.models.external_receiving_address_create import ExternalReceivingAddressCreate
 from x402api.models.external_receiving_address_rotation import ExternalReceivingAddressRotation
-from x402api.models.fee_policy_document import FeePolicyDocument
 from x402api.models.fee_policy_mode_input_enum import FeePolicyModeInputEnum
 from x402api.models.fee_policy_quote_currency_input_enum import FeePolicyQuoteCurrencyInputEnum
 from x402api.models.gas_mode_enum import GasModeEnum
 from x402api.models.http_method_enum import HTTPMethodEnum
 from x402api.models.idempotency_outcome import IdempotencyOutcome
 from x402api.models.idempotency_outcome_state_enum import IdempotencyOutcomeStateEnum
-from x402api.models.native_fee_observation_evidence import NativeFeeObservationEvidence
-from x402api.models.native_usd_observation_evidence import NativeUsdObservationEvidence
-from x402api.models.network_fee_alternative import NetworkFeeAlternative
-from x402api.models.network_fee_evidence import NetworkFeeEvidence
 from x402api.models.network_fee_preview import NetworkFeePreview
 from x402api.models.network_fee_preview_price import NetworkFeePreviewPrice
 from x402api.models.network_fee_preview_response import NetworkFeePreviewResponse
@@ -155,6 +147,8 @@ from x402api.models.payment_readiness_rail_status_enum import PaymentReadinessRa
 from x402api.models.payment_readiness_state_enum import PaymentReadinessStateEnum
 from x402api.models.payment_receipt import PaymentReceipt
 from x402api.models.price_input import PriceInput
+from x402api.models.public_fee_policy_document import PublicFeePolicyDocument
+from x402api.models.public_network_fee_alternative import PublicNetworkFeeAlternative
 from x402api.models.readiness_status_enum import ReadinessStatusEnum
 from x402api.models.receipt_verification_key import ReceiptVerificationKey
 from x402api.models.receipt_verification_key_history import ReceiptVerificationKeyHistory
