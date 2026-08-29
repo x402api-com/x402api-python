@@ -59,7 +59,7 @@ class ProgrammaticChargesApi:
     ) -> DynamicChargeResponse:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
+        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. resource_version_id is the current active_version.id returned by GET /v1/resources, not the top-level resource id or pay_ public_payment_id. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -133,7 +133,7 @@ class ProgrammaticChargesApi:
     ) -> ApiResponse[DynamicChargeResponse]:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
+        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. resource_version_id is the current active_version.id returned by GET /v1/resources, not the top-level resource id or pay_ public_payment_id. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str
@@ -207,7 +207,7 @@ class ProgrammaticChargesApi:
     ) -> RESTResponseType:
         """Create a programmatic charge
 
-        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
+        Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. resource_version_id is the current active_version.id returned by GET /v1/resources, not the top-level resource id or pay_ public_payment_id. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
 
         :param idempotency_key: Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. (required)
         :type idempotency_key: str

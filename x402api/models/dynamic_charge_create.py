@@ -33,7 +33,7 @@ class DynamicChargeCreate(BaseModel):
     """
     DynamicChargeCreate
     """ # noqa: E501
-    resource_version_id: UUID
+    resource_version_id: UUID = Field(description="Current active resource-version UUID used as the charge template. Read resources[].active_version.id from GET /v1/resources or copy Active version UUID (charge API) in the tenant dashboard. Do not use the top-level resource id or pay_ public_payment_id.")
     method: Optional[HTTPMethodEnum] = None
     resource_url: Annotated[str, Field(strict=True, max_length=2048)]
     body_base64: Optional[Annotated[str, Field(strict=True, max_length=1400000)]] = ''
