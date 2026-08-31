@@ -17,31 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ResourcePrice(BaseModel):
+class DynamicChargePaymentResponse(BaseModel):
     """
-    ResourcePrice
+    DynamicChargePaymentResponse
     """ # noqa: E501
-    asset_id: StrictStr
+    charge_id: UUID
+    order_id: UUID
+    payment_id: UUID = Field(description="Durable settlement identifier used by payment and receipt APIs.")
+    state: StrictStr
+    payer: StrictStr
+    transaction: StrictStr
     network: StrictStr
-    contract_address: StrictStr
-    display_name: StrictStr
-    symbol: StrictStr
-    decimals: StrictInt
-    wallet_id: UUID
-    wallet_version_id: UUID
-    recipient: StrictStr
-    amount_atomic: StrictStr
-    listed_amount_atomic: StrictStr
-    max_timeout_seconds: StrictInt
+    error_reason: StrictStr
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["asset_id", "network", "contract_address", "display_name", "symbol", "decimals", "wallet_id", "wallet_version_id", "recipient", "amount_atomic", "listed_amount_atomic", "max_timeout_seconds"]
+    __properties: ClassVar[List[str]] = ["charge_id", "order_id", "payment_id", "state", "payer", "transaction", "network", "error_reason"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -61,7 +57,7 @@ class ResourcePrice(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ResourcePrice from a JSON string"""
+        """Create an instance of DynamicChargePaymentResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,33 +69,9 @@ class ResourcePrice(BaseModel):
         * `None` is only added to the output dict for nullable fields that
           were set at model initialization. Other fields with value `None`
           are ignored.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
-        * OpenAPI `readOnly` fields are excluded.
         * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
-            "asset_id",
-            "network",
-            "contract_address",
-            "display_name",
-            "symbol",
-            "decimals",
-            "wallet_id",
-            "wallet_version_id",
-            "recipient",
-            "amount_atomic",
-            "listed_amount_atomic",
-            "max_timeout_seconds",
             "additional_properties",
         ])
 
@@ -117,7 +89,7 @@ class ResourcePrice(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ResourcePrice from a dict"""
+        """Create an instance of DynamicChargePaymentResponse from a dict"""
         if obj is None:
             return None
 
@@ -125,18 +97,14 @@ class ResourcePrice(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "asset_id": obj.get("asset_id"),
+            "charge_id": obj.get("charge_id"),
+            "order_id": obj.get("order_id"),
+            "payment_id": obj.get("payment_id"),
+            "state": obj.get("state"),
+            "payer": obj.get("payer"),
+            "transaction": obj.get("transaction"),
             "network": obj.get("network"),
-            "contract_address": obj.get("contract_address"),
-            "display_name": obj.get("display_name"),
-            "symbol": obj.get("symbol"),
-            "decimals": obj.get("decimals"),
-            "wallet_id": obj.get("wallet_id"),
-            "wallet_version_id": obj.get("wallet_version_id"),
-            "recipient": obj.get("recipient"),
-            "amount_atomic": obj.get("amount_atomic"),
-            "listed_amount_atomic": obj.get("listed_amount_atomic"),
-            "max_timeout_seconds": obj.get("max_timeout_seconds")
+            "error_reason": obj.get("error_reason")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
