@@ -5,6 +5,7 @@ docs/AssetsAndPaymentControlsApi.md
 docs/BalanceAsset.md
 docs/CanonicalPaymentReadinessRail.md
 docs/DynamicChargeCreate.md
+docs/DynamicChargePaymentResponse.md
 docs/DynamicChargePrice.md
 docs/DynamicChargeResponse.md
 docs/ExternalAddressControlCapabilities.md
@@ -119,6 +120,7 @@ x402api/models/api_error_envelope.py
 x402api/models/balance_asset.py
 x402api/models/canonical_payment_readiness_rail.py
 x402api/models/dynamic_charge_create.py
+x402api/models/dynamic_charge_payment_response.py
 x402api/models/dynamic_charge_price.py
 x402api/models/dynamic_charge_response.py
 x402api/models/external_address_control_capabilities.py
