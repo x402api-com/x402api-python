@@ -181,6 +181,7 @@ jobs:
           PY
 
       - name: Require the immutable package source tag
+        if: inputs.mode == 'direct'
         shell: bash
         env:
           SDK_VERSION: ${{ inputs.set_version }}
