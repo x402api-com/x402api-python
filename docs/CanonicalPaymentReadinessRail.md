@@ -12,6 +12,12 @@ Name | Type | Description | Notes
 **wallet_ready** | **bool** |  | [readonly]
 **platform_available** | **bool** |  | [readonly]
 **accepting_new_payments** | **bool** |  | [readonly]
+**challenge_control_ready** | **bool** |  | [readonly]
+**settlement_control_ready** | **bool** |  | [readonly]
+**fee_quote_ready** | **bool** |  | [readonly]
+**fee_quote_valid_until** | **datetime** |  | [readonly]
+**ready_for_new_payment** | **bool** |  | [readonly]
+**readiness_valid_until** | **datetime** |  | [readonly]
 **status** | [**PaymentReadinessRailStatusEnum**](PaymentReadinessRailStatusEnum.md) |  | [readonly]
 **blockers** | [**List[PaymentReadinessBlocker]**](PaymentReadinessBlocker.md) |  | [readonly]
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **state** | [**PaymentReadinessStateEnum**](PaymentReadinessStateEnum.md) |  | [readonly]
 **accepting_new_payments** | **bool** |  | [readonly]
+**ready_for_new_payment** | **bool** |  | [readonly]
 **paused_by_tenant** | **bool** |  | [readonly]
 **platform_available** | **bool** |  | [readonly]
 **health_valid_until** | **datetime** |  | [readonly]

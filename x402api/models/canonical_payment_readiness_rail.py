@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from x402api.models.payment_readiness_blocker import PaymentReadinessBlocker
 from x402api.models.payment_readiness_rail_status_enum import PaymentReadinessRailStatusEnum
 from typing import Optional, Set
@@ -36,10 +37,16 @@ class CanonicalPaymentReadinessRail(BaseModel):
     wallet_ready: StrictBool
     platform_available: StrictBool
     accepting_new_payments: StrictBool
+    challenge_control_ready: StrictBool
+    settlement_control_ready: StrictBool
+    fee_quote_ready: StrictBool
+    fee_quote_valid_until: Optional[datetime]
+    ready_for_new_payment: StrictBool
+    readiness_valid_until: Optional[datetime]
     status: PaymentReadinessRailStatusEnum
     blockers: List[PaymentReadinessBlocker]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["asset_id", "network", "symbol", "selected", "wallet_ready", "platform_available", "accepting_new_payments", "status", "blockers"]
+    __properties: ClassVar[List[str]] = ["asset_id", "network", "symbol", "selected", "wallet_ready", "platform_available", "accepting_new_payments", "challenge_control_ready", "settlement_control_ready", "fee_quote_ready", "fee_quote_valid_until", "ready_for_new_payment", "readiness_valid_until", "status", "blockers"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -80,6 +87,12 @@ class CanonicalPaymentReadinessRail(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
@@ -90,6 +103,12 @@ class CanonicalPaymentReadinessRail(BaseModel):
             "wallet_ready",
             "platform_available",
             "accepting_new_payments",
+            "challenge_control_ready",
+            "settlement_control_ready",
+            "fee_quote_ready",
+            "fee_quote_valid_until",
+            "ready_for_new_payment",
+            "readiness_valid_until",
             "status",
             "blockers",
             "additional_properties",
@@ -112,6 +131,16 @@ class CanonicalPaymentReadinessRail(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # set to None if fee_quote_valid_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.fee_quote_valid_until is None and "fee_quote_valid_until" in self.model_fields_set:
+            _dict['fee_quote_valid_until'] = None
+
+        # set to None if readiness_valid_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.readiness_valid_until is None and "readiness_valid_until" in self.model_fields_set:
+            _dict['readiness_valid_until'] = None
+
         return _dict
 
     @classmethod
@@ -131,6 +160,12 @@ class CanonicalPaymentReadinessRail(BaseModel):
             "wallet_ready": obj.get("wallet_ready"),
             "platform_available": obj.get("platform_available"),
             "accepting_new_payments": obj.get("accepting_new_payments"),
+            "challenge_control_ready": obj.get("challenge_control_ready"),
+            "settlement_control_ready": obj.get("settlement_control_ready"),
+            "fee_quote_ready": obj.get("fee_quote_ready"),
+            "fee_quote_valid_until": obj.get("fee_quote_valid_until"),
+            "ready_for_new_payment": obj.get("ready_for_new_payment"),
+            "readiness_valid_until": obj.get("readiness_valid_until"),
             "status": obj.get("status"),
             "blockers": [PaymentReadinessBlocker.from_dict(_item) for _item in obj["blockers"]] if obj.get("blockers") is not None else None
         })

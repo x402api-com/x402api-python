@@ -33,9 +33,10 @@ class PaymentReadiness(BaseModel):
     """ # noqa: E501
     state: PaymentReadinessStateEnum
     accepting_new_payments: StrictBool
+    ready_for_new_payment: StrictBool
     paused_by_tenant: StrictBool
     platform_available: StrictBool
-    health_valid_until: datetime
+    health_valid_until: Optional[datetime]
     observed_at: datetime
     tenant_status: StrictStr
     tenant_accepting_new_challenges: StrictBool
@@ -47,7 +48,7 @@ class PaymentReadiness(BaseModel):
     rails: List[PaymentReadinessRail]
     canonical_rails: List[CanonicalPaymentReadinessRail]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["state", "accepting_new_payments", "paused_by_tenant", "platform_available", "health_valid_until", "observed_at", "tenant_status", "tenant_accepting_new_challenges", "global_challenges_enabled", "global_settlement_enabled", "control_plane_ready_for_new_challenges", "control_plane_ready_for_settlement", "external_onboarding", "rails", "canonical_rails"]
+    __properties: ClassVar[List[str]] = ["state", "accepting_new_payments", "ready_for_new_payment", "paused_by_tenant", "platform_available", "health_valid_until", "observed_at", "tenant_status", "tenant_accepting_new_challenges", "global_challenges_enabled", "global_settlement_enabled", "control_plane_ready_for_new_challenges", "control_plane_ready_for_settlement", "external_onboarding", "rails", "canonical_rails"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,11 +95,13 @@ class PaymentReadiness(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "state",
             "accepting_new_payments",
+            "ready_for_new_payment",
             "paused_by_tenant",
             "platform_available",
             "health_valid_until",
@@ -139,6 +142,11 @@ class PaymentReadiness(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # set to None if health_valid_until (nullable) is None
+        # and model_fields_set contains the field
+        if self.health_valid_until is None and "health_valid_until" in self.model_fields_set:
+            _dict['health_valid_until'] = None
+
         # set to None if external_onboarding (nullable) is None
         # and model_fields_set contains the field
         if self.external_onboarding is None and "external_onboarding" in self.model_fields_set:
@@ -158,6 +166,7 @@ class PaymentReadiness(BaseModel):
         _obj = cls.model_validate({
             "state": obj.get("state"),
             "accepting_new_payments": obj.get("accepting_new_payments"),
+            "ready_for_new_payment": obj.get("ready_for_new_payment"),
             "paused_by_tenant": obj.get("paused_by_tenant"),
             "platform_available": obj.get("platform_available"),
             "health_valid_until": obj.get("health_valid_until"),
