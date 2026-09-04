@@ -42,11 +42,13 @@ docs/PaymentReadinessRail.md
 docs/PaymentReadinessRailStatusEnum.md
 docs/PaymentReadinessStateEnum.md
 docs/PaymentReceipt.md
+docs/PaymentReceiptStatus.md
 docs/PriceInput.md
 docs/ProgrammaticChargesApi.md
 docs/PublicFeePolicyDocument.md
 docs/PublicNetworkFeeAlternative.md
 docs/ReadinessStatusEnum.md
+docs/ReceiptStatusEnum.md
 docs/ReceiptVerificationKey.md
 docs/ReceiptVerificationKeyHistory.md
 docs/ReceivingAddressesApi.md
@@ -154,10 +156,12 @@ x402api/models/payment_readiness_rail.py
 x402api/models/payment_readiness_rail_status_enum.py
 x402api/models/payment_readiness_state_enum.py
 x402api/models/payment_receipt.py
+x402api/models/payment_receipt_status.py
 x402api/models/price_input.py
 x402api/models/public_fee_policy_document.py
 x402api/models/public_network_fee_alternative.py
 x402api/models/readiness_status_enum.py
+x402api/models/receipt_status_enum.py
 x402api/models/receipt_verification_key.py
 x402api/models/receipt_verification_key_history.py
 x402api/models/resource.py

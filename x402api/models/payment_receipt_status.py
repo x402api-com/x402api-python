@@ -17,35 +17,30 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
-from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
+from x402api.models.receipt_status_enum import ReceiptStatusEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class DynamicChargePrice(BaseModel):
+class PaymentReceiptStatus(BaseModel):
     """
-    DynamicChargePrice
+    PaymentReceiptStatus
     """ # noqa: E501
-    asset_id: Annotated[str, Field(strict=True, max_length=80)]
-    amount_atomic: Annotated[str, Field(strict=True, max_length=78)]
+    payment_id: UUID
+    state: StrictStr
+    confirmed: StrictBool
+    finalized: StrictBool
+    confirmed_at: Optional[datetime]
+    finalized_at: Optional[datetime]
+    transaction: StrictStr
+    network: StrictStr
+    receipt_status: ReceiptStatusEnum
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["asset_id", "amount_atomic"]
-
-    @field_validator('asset_id', mode="before")
-    def asset_id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(r"^[-a-zA-Z0-9_]+$", value):
-            raise ValueError(r"must validate the regular expression /^[-a-zA-Z0-9_]+$/")
-        return value
-
-    @field_validator('amount_atomic', mode="before")
-    def amount_atomic_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(r"^[1-9][0-9]*$", value):
-            raise ValueError(r"must validate the regular expression /^[1-9][0-9]*$/")
-        return value
+    __properties: ClassVar[List[str]] = ["payment_id", "state", "confirmed", "finalized", "confirmed_at", "finalized_at", "transaction", "network", "receipt_status"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -65,7 +60,7 @@ class DynamicChargePrice(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of DynamicChargePrice from a JSON string"""
+        """Create an instance of PaymentReceiptStatus from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -93,11 +88,21 @@ class DynamicChargePrice(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # set to None if confirmed_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.confirmed_at is None and "confirmed_at" in self.model_fields_set:
+            _dict['confirmed_at'] = None
+
+        # set to None if finalized_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.finalized_at is None and "finalized_at" in self.model_fields_set:
+            _dict['finalized_at'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of DynamicChargePrice from a dict"""
+        """Create an instance of PaymentReceiptStatus from a dict"""
         if obj is None:
             return None
 
@@ -105,8 +110,15 @@ class DynamicChargePrice(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "asset_id": obj.get("asset_id"),
-            "amount_atomic": obj.get("amount_atomic")
+            "payment_id": obj.get("payment_id"),
+            "state": obj.get("state"),
+            "confirmed": obj.get("confirmed"),
+            "finalized": obj.get("finalized"),
+            "confirmed_at": obj.get("confirmed_at"),
+            "finalized_at": obj.get("finalized_at"),
+            "transaction": obj.get("transaction"),
+            "network": obj.get("network"),
+            "receipt_status": obj.get("receipt_status")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
