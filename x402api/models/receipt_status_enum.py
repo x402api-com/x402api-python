@@ -18,21 +18,18 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class PaymentReadinessRailStatusEnum(str, Enum):
+class ReceiptStatusEnum(str, Enum):
     """
-    * `ready` - ready * `needs_wallet` - needs_wallet * `paused_by_tenant` - paused_by_tenant * `temporarily_unavailable` - temporarily_unavailable * `not_selected` - not_selected
+    * `pending_confirmation` - pending_confirmation * `pending_finality` - pending_finality
     """
 
     """
     allowed enum values
     """
-    READY = 'ready'
-    NEEDS_WALLET = 'needs_wallet'
-    PAUSED_BY_TENANT = 'paused_by_tenant'
-    TEMPORARILY_UNAVAILABLE = 'temporarily_unavailable'
-    NOT_SELECTED = 'not_selected'
+    PENDING_CONFIRMATION = 'pending_confirmation'
+    PENDING_FINALITY = 'pending_finality'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PaymentReadinessRailStatusEnum from a JSON string"""
+        """Create an instance of ReceiptStatusEnum from a JSON string"""
         return cls(json.loads(json_str))

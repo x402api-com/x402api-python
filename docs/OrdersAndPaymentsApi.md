@@ -417,11 +417,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payments_retrieve_receipt**
-> PaymentReceipt payments_retrieve_receipt(id)
+> Union[PaymentReceipt, PaymentReceiptStatus] payments_retrieve_receipt(id)
 
 Retrieve a payment receipt
 
-Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
+Retrieve the signed receipt projection for one tenant-visible payment. HTTP 202 returns confirmation and finality state while the signed receipt is pending. Requires a tenant API key with the `payments:read` scope.
 
 ### Example
 
@@ -430,6 +430,7 @@ Retrieve the signed receipt projection for one tenant-visible payment. Requires 
 ```python
 import x402api
 from x402api.models.payment_receipt import PaymentReceipt
+from x402api.models.payment_receipt_status import PaymentReceiptStatus
 from x402api.rest import ApiException
 from pprint import pprint
 
@@ -475,7 +476,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PaymentReceipt**](PaymentReceipt.md)
+[**PaymentReceipt**](PaymentReceipt.md) or [**PaymentReceiptStatus**](PaymentReceiptStatus.md)
 
 ### Authorization
 
@@ -491,6 +492,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response for retrieve a payment receipt. |  * X-Request-ID -  <br>  |
+**202** | Payment status while the signed finalized receipt is pending. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
+**409** | The request failed. |  * X-Request-ID -  <br>  |
+**503** | The request failed. |  * X-Request-ID -  <br>  |
 **0** | The request failed with a stable machine-readable error. |  * X-Request-ID -  <br>  * Retry-After -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

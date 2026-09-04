@@ -74,6 +74,31 @@ while True:
 
 Treat the cursor as opaque and pass it back unchanged. The same pattern applies to orders, payment observations, receiving addresses, resources, and resource versions.
 
+## Poll a receipt without blocking fulfillment
+
+The receipt endpoint returns either a finalized signed `PaymentReceipt` with HTTP `200` or a `PaymentReceiptStatus` with HTTP `202`. Use the HTTP-info variant when you need `Retry-After`:
+
+```python
+from x402api.models.payment_receipt import PaymentReceipt
+from x402api.models.payment_receipt_status import PaymentReceiptStatus
+
+response = payments_api.payments_retrieve_receipt_with_http_info(payment_id)
+
+if isinstance(response.data, PaymentReceiptStatus):
+    if response.data.confirmed:
+        provision_once(payment_id=response.data.payment_id)
+    schedule_receipt_poll(
+        payment_id=response.data.payment_id,
+        retry_after=response.headers.get("Retry-After"),
+    )
+else:
+    assert isinstance(response.data, PaymentReceipt)
+    provision_once(payment_id=payment_id)
+    attach_signed_receipt(response.data)
+```
+
+Confirmation is sufficient to begin idempotent fulfillment. Finalization and the signed receipt arrive asynchronously; do not resubmit or create a second payment while receipt polling returns HTTP `202`.
+
 ## Error handling
 
 ```python

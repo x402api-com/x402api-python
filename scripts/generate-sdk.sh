@@ -31,4 +31,5 @@ docker run --rm \
   --additional-properties "packageVersion=${sdk_version}" \
   --global-property apiTests=false,modelTests=false
 
+python3 scripts/patch-receipt-response-types.py
 python3 scripts/normalize-generated.py

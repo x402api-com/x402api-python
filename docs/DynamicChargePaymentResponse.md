@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **order_id** | **UUID** |  |
 **payment_id** | **UUID** | Durable settlement identifier used by payment and receipt APIs. |
 **state** | **str** |  |
+**confirmed** | **bool** |  | [optional]
+**finalized** | **bool** |  | [optional]
 **payer** | **str** |  |
 **transaction** | **str** |  |
 **network** | **str** |  |

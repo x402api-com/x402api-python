@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **order_id** | **UUID** |  | [readonly]
 **reservation_id** | **UUID** |  | [readonly]
 **state** | [**SettlementJobStateEnum**](SettlementJobStateEnum.md) |  | [readonly]
+**confirmed** | **bool** |  | [optional] [readonly]
+**finalized** | **bool** |  | [optional] [readonly]
 **network** | **str** |  | [readonly]
 **transaction_hash** | **str** |  | [readonly]
 **original_transaction_hash** | **str** |  | [readonly]
