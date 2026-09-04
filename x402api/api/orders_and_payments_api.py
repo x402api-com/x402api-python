@@ -21,6 +21,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from x402api.models.order import Order
 from x402api.models.payment_receipt import PaymentReceipt
+from x402api.models.payment_receipt_status import PaymentReceiptStatus
 from x402api.models.receipt_verification_key_history import ReceiptVerificationKeyHistory
 from x402api.models.settlement_chain_observation import SettlementChainObservation
 from x402api.models.settlement_job import SettlementJob
@@ -1451,7 +1452,7 @@ class OrdersAndPaymentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PaymentReceipt:
+    ) -> Union[PaymentReceipt, PaymentReceiptStatus]:
         """Retrieve a payment receipt
 
         Retrieve the signed receipt projection for one tenant-visible payment. HTTP 202 returns confirmation and finality state while the signed receipt is pending. Requires a tenant API key with the `payments:read` scope.
@@ -1522,7 +1523,7 @@ class OrdersAndPaymentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PaymentReceipt]:
+    ) -> ApiResponse[Union[PaymentReceipt, PaymentReceiptStatus]]:
         """Retrieve a payment receipt
 
         Retrieve the signed receipt projection for one tenant-visible payment. HTTP 202 returns confirmation and finality state while the signed receipt is pending. Requires a tenant API key with the `payments:read` scope.

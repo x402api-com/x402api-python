@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **payments_retrieve_receipt**
-> PaymentReceipt payments_retrieve_receipt(id)
+> Union[PaymentReceipt, PaymentReceiptStatus] payments_retrieve_receipt(id)
 
 Retrieve a payment receipt
 
@@ -430,6 +430,7 @@ Retrieve the signed receipt projection for one tenant-visible payment. HTTP 202 
 ```python
 import x402api
 from x402api.models.payment_receipt import PaymentReceipt
+from x402api.models.payment_receipt_status import PaymentReceiptStatus
 from x402api.rest import ApiException
 from pprint import pprint
 
@@ -475,7 +476,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PaymentReceipt**](PaymentReceipt.md)
+[**PaymentReceipt**](PaymentReceipt.md) or [**PaymentReceiptStatus**](PaymentReceiptStatus.md)
 
 ### Authorization
 
