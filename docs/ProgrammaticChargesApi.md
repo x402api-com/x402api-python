@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Create a programmatic charge
 
-Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. resource_version_id is the current active_version.id returned by GET /v1/resources, not the top-level resource id or pay_ public_payment_id. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. Requires a tenant API key with the `commerce:write` scope.
+Create one idempotent dynamic charge and immutable PAYMENT-REQUIRED challenge from an active resource template. resource_version_id is the current active_version.id returned by GET /v1/resources, not the top-level resource id or pay_ public_payment_id. The 201 management response contains the canonical buyer challenge; it does not submit or settle payment. When direct human checkout is active and the frozen charge has an eligible sponsored rail, the response also contains paired human_checkout_url and qr_payload fields for the same exact charge. Requires a tenant API key with the `commerce:write` scope.
 
 ### Example
 
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 
 Retrieve a programmatic charge
 
-Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
+Retrieve the frozen terms and current projected status of a tenant charge. Any optional human_checkout_url and qr_payload are stable, identical bearer capabilities that expire with expires_at. Requires a tenant API key with the `commerce:read` scope.
 
 ### Example
 
